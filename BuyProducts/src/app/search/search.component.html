@@ -1,3 +1,91 @@
-<p>
-  search works!
-</p>
+
+<!--<div>
+  <input type="text" [(ngModel)]="userFilter.name" placeholder="name">
+  <ul>
+    <li *ngFor="let user of users | filterBy: userFilter">{{ user.name }}</li>
+
+    &lt;!&ndash; in case you want to show empty message &ndash;&gt;
+    <li *ngIf="(users | filterBy: userFilter).length === 0">No matching elements</li>
+  </ul>
+</div>-->
+<table>
+  <tr>
+    <div>
+      Add items
+      <td>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of items" [value]="option.name" (click)="itemNames(option.name)">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+
+      </td>
+
+
+    </div>
+  </tr>
+  <tr *ngIf="contains">
+
+
+        <td>Item is present and the cost of Item is </td>
+        <!--<select [(ngModel)]="selectedOption">
+          <br>
+          <br>
+          <option *ngFor="let countOfItems of count">
+            {{countOfItems}}
+          </option>
+        </select>
+        <button (click)="totalCost()">Submit Quantity</button>-->
+        <td>
+
+          {{ItemCost}}
+        </td>
+  </tr>
+
+  <tr *ngIf="contains">
+    <td>
+      <select [(ngModel)]="selectedOption">
+        <br>
+        <br>
+        <option *ngFor="let countOfItems of count">
+          {{countOfItems}}
+        </option>
+      </select>
+    </td>
+    <td>
+      <button (click)="totalCost()">Submit Quantity</button>
+    </td>
+
+  </tr>
+
+  <tr *ngIf="total">
+    <td>
+      cost of the total Items is
+    </td>
+    <td>
+      {{total}}
+    </td>
+    <td>
+      <button (click)="checkOut()">checkOut
+      </button>
+    </td>
+  </tr>
+
+
+</table>
+
+<div *ngIf="notContains">
+  <div>Item is not present</div>
+
+</div>
+
+{{totalData}}
+<div *ngIf="totalData">
+</div>
+<app-display-items [ItemDetails]=totalData></app-display-items>
+
