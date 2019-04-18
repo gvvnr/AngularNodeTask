@@ -1,23 +1,16 @@
-
-<!--<div>
-  <input type="text" [(ngModel)]="userFilter.name" placeholder="name">
-  <ul>
-    <li *ngFor="let user of users | filterBy: userFilter">{{ user.name }}</li>
-
-    &lt;!&ndash; in case you want to show empty message &ndash;&gt;
-    <li *ngIf="(users | filterBy: userFilter).length === 0">No matching elements</li>
-  </ul>
-</div>-->
 <table>
   <tr>
     <div>
       Add items
       <td>
+
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"
+            [(ngModel)]="userFilter.name" >
+
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of items" [value]="option.name" (click)="itemNames(option.name)">
+              <mat-option *ngFor="let option of items | filterBy: userFilter" [value]="option.name" (click)="itemNames(option.name)">
                 {{option.name}}
               </mat-option>
             </mat-autocomplete>
@@ -33,14 +26,6 @@
 
 
         <td>Item is present and the cost of Item is </td>
-        <!--<select [(ngModel)]="selectedOption">
-          <br>
-          <br>
-          <option *ngFor="let countOfItems of count">
-            {{countOfItems}}
-          </option>
-        </select>
-        <button (click)="totalCost()">Submit Quantity</button>-->
         <td>
 
           {{ItemCost}}

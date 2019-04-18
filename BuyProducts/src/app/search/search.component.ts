@@ -8,19 +8,15 @@ import {FormControl} from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
   //items: any[];
   count :number[]=[1,2,3,4,5];
   total :number;
   totalData=new Array();
- // userFilter: any;
+  userFilter: any = { name: '' };
   value: any;
   ItemCost: number;
-  data:any;
   contains: any;
   notContains: any;
-  //users: any[] = [{ name: 'John' }, { name: 'Jane                                                                                                                                                         ' }, { name: 'Mario' }];
-  //userFilter: any = { name: '' };
   NameAndPrice: string;
   selectedOption: number;
   NameAndPriceValue=false;
@@ -43,6 +39,7 @@ export class SearchComponent implements OnInit {
     this.total=(this.selectedOption *this.ItemCost);
   }
   constructor() {
+
 
   }
 
