@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment.component.sass']
 })
 export class PaymentComponent implements OnInit {
+  itemData :any;
+
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

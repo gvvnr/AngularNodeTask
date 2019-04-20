@@ -12,8 +12,12 @@ import { FooterComponent } from './footer/footer.component';
 import { PaymentComponent } from './payment/payment.component';
 import { DisplayComponent } from './display/display.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {SearchService} from "./search/search.service";
+import {QueryApi} from "./commonServices/request/QueryApi";
+import {HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/search', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
   { path: 'payment', component: PaymentComponent }
 ];
@@ -26,7 +30,6 @@ const routes: Routes = [
     FooterComponent,
     PaymentComponent,
     DisplayComponent,
-   // BrowserAnimationsModule
   ],
   imports: [
     BrowserModule,
@@ -35,10 +38,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    HttpClientModule
   ],
   exports: [ RouterModule ],
-  providers: [],
+ providers: [SearchService,QueryApi],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

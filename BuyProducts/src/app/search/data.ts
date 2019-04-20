@@ -1,5 +1,7 @@
-export class Data {
+export class ItemData {
 
-  name: string;
-  cost: number;
+  product_id : number;
+  quantity: number;
+  totalCost: number;
+  itemName:string;
 }

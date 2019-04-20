@@ -1,76 +1,148 @@
-<table>
-  <tr>
-    <div>
-      Add items
-      <td>
+<br>
 
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-10">
+
+
+      <div *ngIf="ItemName">
         <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"
-            [(ngModel)]="userFilter.name" >
+            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" size="100%"
+                   [(ngModel)]="userFilter.Name" >
 
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of items | filterBy: userFilter" [value]="option.name" (click)="itemNames(option.name)">
-                {{option.name}}
+              <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)">
+                {{option.Name}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </form>
-
-      </td>
-
-
-    </div>
-  </tr>
-  <tr *ngIf="contains">
+                  <div *ngIf="contains">
+                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs
+                    <br>
 
 
-        <td>Item is present and the cost of Item is </td>
-        <td>
 
-          {{ItemCost}}
-        </td>
-  </tr>
+                    <select [(ngModel)]="selectedOption">
 
-  <tr *ngIf="contains">
-    <td>
-      <select [(ngModel)]="selectedOption">
+                      <option *ngFor="let countOfItems of count">
+                        {{countOfItems}}
+                      </option>
+                    </select>
+                    &nbsp; &nbsp;
+                    <button (click)="totalCost()">Submit Quantity</button>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <div *ngIf="total && contains" >
+                   cost of the total Items is  &nbsp; <b>{{total}}</b>&nbsp;
+
+          <button (click)="addItem()">addItem
+          </button>
+
+        </div>
         <br>
         <br>
-        <option *ngFor="let countOfItems of count">
-          {{countOfItems}}
-        </option>
-      </select>
-    </td>
-    <td>
-      <button (click)="totalCost()">Submit Quantity</button>
-    </td>
-
-  </tr>
-
-  <tr *ngIf="total">
-    <td>
-      cost of the total Items is
-    </td>
-    <td>
-      {{total}}
-    </td>
-    <td>
-      <button (click)="checkOut()">checkOut
-      </button>
-    </td>
-  </tr>
+        <div *ngIf="NameAndPrice" class="col-sm-10">
+          <table class="table">
+            <tr>
+              <th>
+                ItemName
+              </th>
+              <th>
+                quantity
+              </th>
+              <th>
+                totalCost
+              </th>
+            </tr>
 
 
-</table>
+              <tr *ngFor="let itemAndDetails of ItemDataDetails">
+                <td>
+                  {{itemAndDetails.itemName}}
+                </td>
+                <td>
+                  {{itemAndDetails.quantity}}
+                </td>
+                <td>
+                  {{itemAndDetails.totalCost}}
+                </td>
+              </tr>
 
-<div *ngIf="notContains">
-  <div>Item is not present</div>
+
+
+
+
+          </table>
+          <div>
+            Enter Name &nbsp;
+            <input type="text" [(ngModel)]="customerName">
+          </div>
+          <br>
+
+          <button (click)="makePayment()">make Payment</button>
+
+        </div>
+
+
+
+
+
+
+      </div>
+
+
+
+  </div>
 
 </div>
 
-{{totalData}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--{{totalData}}
 <div *ngIf="totalData">
-</div>
-<app-display-items [ItemDetails]=totalData></app-display-items>
+</div>-->
+<!--
+<app-display-items [ItemDetails]=totalData
+></app-display-items>
+-->
 
+<!--
+<div *ngIf="item[0].id">
+  {{item[0].id}}
+</div>
+-->
+<!--<div *ngIf="ItemName">
+  {{ItemName[0].Name}}
+
+</div>-->
