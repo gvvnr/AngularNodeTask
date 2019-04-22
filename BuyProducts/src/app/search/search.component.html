@@ -3,62 +3,56 @@
 <div class="row">
   <div class="col-sm-2">
   </div>
-  <div class="col-sm-10">
+  <div class="col-sm-9">
 
 
-      <div *ngIf="ItemName">
-        <form class="example-form">
+      <div *ngIf="ItemName" >
+        <form class="example-form" >
+         <div class="form-group">
           <mat-form-field class="example-full-width">
             <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" size="100%"
-                   [(ngModel)]="userFilter.Name" >
-
+                   class="form-control"  [(ngModel)]="userFilter.Name" >
+            <!--id="exampleInputEmail1"-->
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)">
                 {{option.Name}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+         </div>
         </form>
                   <div *ngIf="contains">
                     Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs
                     <br>
 
 
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <select [(ngModel)]="selectedOption" class="form-control" id="exampleFormControlSelect1"
+                                style="width: 40%" >
 
-                    <select [(ngModel)]="selectedOption">
+                          <option *ngFor="let countOfItems of count">
+                            {{countOfItems}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <button (click)="totalCost()" class="btn btn-primary" style="width: 50%">Submit Quantity</button>                      </div>
 
-                      <option *ngFor="let countOfItems of count">
-                        {{countOfItems}}
-                      </option>
-                    </select>
-                    &nbsp; &nbsp;
-                    <button (click)="totalCost()">Submit Quantity</button>
+
+                    </div>
+
                   </div>
+        <br>
+        <br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                 <div *ngIf="total && contains" >
-                   cost of the total Items is  &nbsp; <b>{{total}}</b>&nbsp;
-
-          <button (click)="addItem()">addItem
-          </button>
+        <div *ngIf="total" class="row">
+          <div class="col-sm-4"> cost of the total Items is  &nbsp; <b>{{total}}</b>&nbsp;</div>
+          <div class="col-sm-8"><button (click)="addItem()" class="btn btn-secondary">add to cart
+          </button></div>
 
         </div>
+
         <br>
         <br>
         <div *ngIf="NameAndPrice" class="col-sm-10">
@@ -93,13 +87,18 @@
 
 
           </table>
-          <div>
-            Enter Name &nbsp;
-            <input type="text" [(ngModel)]="customerName">
+          <br>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Customer Name</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
+                   [(ngModel)]="customerName">
           </div>
+
           <br>
 
-          <button (click)="makePayment()">make Payment</button>
+          <button (click)="makePayment()" class="btn btn-light">make Payment</button>
 
         </div>
 

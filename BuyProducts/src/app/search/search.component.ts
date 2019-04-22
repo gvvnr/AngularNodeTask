@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   rowDetails: any;
   ItemCost: number;
   contains: any;
-  selectedOption: number;
+  selectedOption=1;
   ItemName:any[] = [];
   ItemDataDetails: ItemData[]=[];
   NameAndPrice: ItemData;
@@ -57,15 +57,14 @@ ngOnInit() {
     console.log(this.NameAndPrice.product_id);
     this.ItemDataDetails.push(<ItemData>this.NameAndPrice);
     this.contains=false;
+    this.total=undefined;
 
   }
   makePayment(){
-    console.log('making payment.....');
   this.searchData.createItemData(this.ItemDataDetails).subscribe(resp => {
     console.log('response is:',resp);
 
   });
-  console.log('In ----------------bill table----------');
   this.totalBill={
     purchasedBy: this.customerName,
     purchasedOn: this.days[new Date().getDay()],
@@ -76,7 +75,7 @@ ngOnInit() {
       console.log(resp);
     });
 
-  this.router.navigate(['/payment'],{ queryParams: { list: this.ItemDataDetails[0].itemName } });
+  this.router.navigate(['/payment']);
 
   }
 
