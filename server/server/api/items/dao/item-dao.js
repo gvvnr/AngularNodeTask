@@ -19,7 +19,7 @@ export class ItemDao {
   static createNew(request) {
    // console.log(request[0].product_id);
     console.log('--------------');
-
+       console.log('in DOB');
       return new Promise((resolve, reject) => {
         models.item.create({
             product_id:request.product_id,
@@ -29,25 +29,9 @@ export class ItemDao {
           }
 
         )
-
-
-
-
-
-
-      /*.then((res)=>{
-        console.log('QQQQQQQQQQQQQQQQQ',res.id);
-        models.Bill.create({
-          purchasedBy:'vamsi',
-          purchasedOn:'Monday',
-          ListOfItems:request.items,
-          total:request.totalCost
-
-        })
-
-
-      })*/.then(body => {
-          resolve(body)
+      .then( (body) => {
+        console.log('body');
+         // resolve(body)
         })
         .catch(error => {
           reject(error)

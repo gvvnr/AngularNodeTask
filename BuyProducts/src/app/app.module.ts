@@ -15,7 +15,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SearchService} from "./search/search.service";
 import {QueryApi} from "./commonServices/request/QueryApi";
 import {HttpClientModule} from "@angular/common/http";
-
+import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+//import {MdDialogModule} from '@angular/material';
 const routes: Routes = [
   { path: '', redirectTo: '/search', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
@@ -39,7 +41,12 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    //MatDialog
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    BrowserAnimationsModule
   ],
   exports: [ RouterModule ],
  providers: [SearchService,QueryApi],

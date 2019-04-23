@@ -13,11 +13,12 @@ export default class ItemController {
   }
   static createNew(req, res) {
     const _reqBody = req.body;
-    //console.log(_reqBody);
+    console.log('In body');
+    console.log(_reqBody[0].product_id);
     for(let i=0;i<_reqBody.length;i++) {
       ItemDao.createNew(_reqBody[i])
-        .then(ShopDao => {
-          //res.status(201).json(ShopDao);
+        .then(() => {
+          console.log(res.status(201));
         })
         .catch(error => {
           console.log(error);

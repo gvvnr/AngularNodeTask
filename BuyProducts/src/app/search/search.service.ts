@@ -35,7 +35,7 @@ export class SearchService {
     let req;
     console.log('in service');
 
-    return this.queryApi.doPost('INSERT_BILL_DATA',billData).pipe(map(res =>{console.log(res,'rgbflbdfl')})
+    return this.queryApi.doPost('INSERT_BILL_DATA',billData).pipe(map(res =>{console.log(res)})
       ,catchError((err) =>
         err
       )

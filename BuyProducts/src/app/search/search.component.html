@@ -26,7 +26,7 @@
                     <br>
 
 
-                    <div class="row">
+<!--                    <div class="row">
                       <div class="col-sm-6">
                         <select [(ngModel)]="selectedOption" class="form-control" id="exampleFormControlSelect1"
                                 style="width: 40%" >
@@ -42,20 +42,20 @@
 
                     </div>
 
-                  </div>
+                  </div>-->
         <br>
         <br>
 
-        <div *ngIf="total" class="row">
+<!--        <div *ngIf="total" class="row">
           <div class="col-sm-4"> cost of the total Items is  &nbsp; <b>{{total}}</b>&nbsp;</div>
           <div class="col-sm-8"><button (click)="addItem()" class="btn btn-secondary">add to cart
           </button></div>
 
-        </div>
+        </div>-->
 
         <br>
         <br>
-        <div *ngIf="NameAndPrice" class="col-sm-10">
+        <div  class="col-sm-10">
           <table class="table">
             <tr>
               <th>
@@ -75,7 +75,14 @@
                   {{itemAndDetails.itemName}}
                 </td>
                 <td>
-                  {{itemAndDetails.quantity}}
+                  <select [(ngModel)]="selectedOption[itemAndDetails.itemCount]" class="form-control" (click)="cost(itemAndDetails)">
+
+                    <option *ngFor="let countOfItems of count">
+                      {{countOfItems}}
+                    </option>
+                  </select>
+
+<!--                  {{itemAndDetails.quantity}}-->
                 </td>
                 <td>
                   {{itemAndDetails.totalCost}}
