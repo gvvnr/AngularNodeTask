@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
 import {QueryApi} from "../commonServices/request/QueryApi";
 import {catchError} from "rxjs/operators";
-
 import { map } from 'rxjs/operators';
 
 @Injectable({
