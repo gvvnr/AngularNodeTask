@@ -10,9 +10,10 @@
         <form class="example-form" >
          <div class="form-group">
           <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" size="100%"
-                   class="form-control"  [(ngModel)]="userFilter.Name" >
-            <!--id="exampleInputEmail1"-->
+            <input type="text" placeholder="Pick one"  matInput [formControl]="myControl" [matAutocomplete]="auto"
+                   class="form-control "  [(ngModel)]="userFilter.Name"> <!--aria-label="Number"-->
+
+
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)">
                 {{option.Name}}
@@ -22,50 +23,20 @@
          </div>
         </form>
                   <div *ngIf="contains">
-                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs
-                    <br>
-
-
-<!--                    <div class="row">
-                      <div class="col-sm-6">
-                        <select [(ngModel)]="selectedOption" class="form-control" id="exampleFormControlSelect1"
-                                style="width: 40%" >
-
-                          <option *ngFor="let countOfItems of count">
-                            {{countOfItems}}
-                          </option>
-                        </select>
-                      </div>
-                      <div class="col-sm-6">
-                        <button (click)="totalCost()" class="btn btn-primary" style="width: 50%">Submit Quantity</button>                      </div>
-
-
-                    </div>
-
-                  </div>-->
-        <br>
-        <br>
-
-<!--        <div *ngIf="total" class="row">
-          <div class="col-sm-4"> cost of the total Items is  &nbsp; <b>{{total}}</b>&nbsp;</div>
-          <div class="col-sm-8"><button (click)="addItem()" class="btn btn-secondary">add to cart
-          </button></div>
-
-        </div>-->
+<!--                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs-->
 
         <br>
-        <br>
-        <div  class="col-sm-10">
+        <div  class="col-sm-12">
           <table class="table">
             <tr>
               <th>
                 ItemName
               </th>
               <th>
-                quantity
+                Quantity
               </th>
               <th>
-                totalCost
+                TotalCost
               </th>
             </tr>
 
@@ -94,22 +65,38 @@
 
 
           </table>
+          <table class="table">
+            <tr>
+              <th>Total cost</th>
+              <td>{{itemsTotalCost}}</td>
+              <td></td>
+            </tr>
+
+          </table>
           <br>
-          <div class="input-group mb-3">
+          <!--<div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">Customer Name</span>
             </div>
-            <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
-                   [(ngModel)]="customerName">
+            <input type="text" class="form-control col-sm-4" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
+                   [(ngModel)]="customerName" >
           </div>
 
           <br>
 
-          <button (click)="makePayment()" class="btn btn-light">make Payment</button>
-
-        </div>
 
 
+        </div>-->
+          <div class="form-group row">
+            <div class="col-sm-2"><label>Customer Name:</label></div>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
+                     [(ngModel)]="customerName"  (input)="disableOrEnableButton()" >
+            </div>
+
+          </div>
+
+          <button (click)="makePayment()" class="btn btn-light" [disabled]="paymentOption">make Payment</button>
 
 
 
@@ -122,33 +109,4 @@
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--{{totalData}}
-<div *ngIf="totalData">
-</div>-->
-<!--
-<app-display-items [ItemDetails]=totalData
-></app-display-items>
--->
-
-<!--
-<div *ngIf="item[0].id">
-  {{item[0].id}}
 </div>
--->
-<!--<div *ngIf="ItemName">
-  {{ItemName[0].Name}}
-
-</div>-->

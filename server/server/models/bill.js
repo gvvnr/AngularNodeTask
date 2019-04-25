@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Bill.associate = function(models) {
     // associations can be defined here
-    /*Bill.hasMany(models.items,{
+    /*Bill.hasMany(models.BillItems,{
       foreignKey:'bill_id',
       sourceKey:'id'
     })*/

@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ItemData} from './data';
 import {FormControl} from '@angular/forms';
 import {SearchService} from './search.service';
-import { Router} from "@angular/router";
+import { Router, NavigationExtras} from "@angular/router";
 import {Bill} from './bill'
-import {PaymentComponent} from "../payment/payment.component";
 import {MatDialog} from '@angular/material';
 @Component({
   selector: 'app-search',
@@ -17,8 +16,8 @@ export class SearchComponent implements OnInit {
   userFilter: any = { Name: '' };
   rowDetails: any;
   ItemCost: number;
-  contains: any;
-  selectedOption:any=[1];
+  contains: any;// if item is present displays the table
+  selectedOption:any=[1];//--each selected items item count
   ItemName:any[] = [];
   ItemDataDetails: ItemData[]=[];
   NameAndPrice: ItemData;
@@ -27,70 +26,88 @@ export class SearchComponent implements OnInit {
   customerName:string;
   itemsTotalCost=0;
   itemCount=-1;
+  paymentOption=true;
   days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 
 constructor(private searchData :SearchService,private router: Router,public dialog: MatDialog) {  }
 ngOnInit() {
-  console.log('hello');
   this.asign();
 
 }
-cost(product){
+cost(product){//--------------changing cost of item based on select option in the table-----------//
 
-  let i;
 
-  for(i=0;i<this.ItemName.length;i++){
+
+  for(let i=0;i<this.ItemName.length;i++){
     if(this.ItemName[i].Name==product.itemName){
       this.itemsTotalCost=this.itemsTotalCost-product.totalCost;
       product.totalCost=product.cost*this.selectedOption[product.itemCount];
       this.itemsTotalCost=this.itemsTotalCost+product.totalCost;
+      product.quantity=this.selectedOption[product.itemCount];
     }
   }
 }
+  disableOrEnableButton(){//-----enabling or disabling a button based on input text field before payment------//
+  if(this.customerName.length>0)
+    this.paymentOption=false;
+  else {
+    this.paymentOption=true;
 
-  asign(){//getting all rows from data base
+
+  }
+
+  }
+
+  asign(){//-------getting all rows from data base------------------------//
     this.searchData.getProductData().subscribe((response)=>{
       this.ItemName=response;
     });
 
   }
 
-  makePayment(){//inserting data into bill and item tables
-  this.searchData.createItemData(this.ItemDataDetails).subscribe(resp => {
-    console.log('response is:',resp);
+  makePayment(){ //--------------------inserting data into bill and item tables----------------//
+    this.totalBill={
+      purchasedBy: this.customerName,
+      purchasedOn: this.days[new Date().getDay()],
+      listOfItems:this.totalItems,
+      itemsTotalCost:this.itemsTotalCost
+    };
+    this.searchData.createBillData(this.totalBill).subscribe(resp =>{
+      console.log('rrr',resp);
+      /*this.searchData.createItemData(this.ItemDataDetails,resp).subscribe(response => {
+        console.log('create item response');
+        console.log(response);
 
-  });
-  this.totalBill={
-    purchasedBy: this.customerName,
-    purchasedOn: this.days[new Date().getDay()],
-    listOfItems:this.totalItems,
-    itemsTotalCost:this.itemsTotalCost
-  };
-  this.searchData.createBillData(this.totalBill).subscribe(resp =>{
-      console.log(resp);
+
+      });*/
+      this.searchData.bulkCreateItemData(this.ItemDataDetails,resp).subscribe(response => {
+        console.log('bulk create item response');
+        console.log(response);
+
+
+      });
+      this.navigate(resp);
     });
-    const dialogRef = this.dialog.open(PaymentComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-    this.ItemDataDetails=[];
-    this.contains=undefined;
- // this.router.navigate(['/payment']);
-
+  }
+  navigate(data) {//---------navigating to payment page by taking some required data----------------------
+    let navigationExtras: NavigationExtras = {
+      queryParams: data
+    };
+    this.router.navigate(['/payment'], navigationExtras);
   }
 
 
-  itemNames(row){
+
+  itemNames(row){//
     this.selectedOption.push(1);
-    console.log(this.selectedOption);
     this.rowDetails=row;
     this.ItemCost=this.rowDetails.price;
     this.contains=true;
     this.itemsTotalCost=this.itemsTotalCost+this.ItemCost;
     this.itemCount=this.itemCount+1;
-    this.NameAndPrice = {
+    this.NameAndPrice = {//-----class object for storing data in Item table-------------------------
       product_id:this.rowDetails.id,
       quantity:this.selectedOption[this.itemCount],
       totalCost:this.ItemCost,
@@ -98,8 +115,11 @@ cost(product){
       cost:this.ItemCost,
       itemCount:this.itemCount
     };
-    this.totalItems=this.totalItems+' '+this.rowDetails.Name;
+    if(this.totalItems.length>0)
+    this.totalItems=this.totalItems+' , '+this.rowDetails.Name;
+    else
+      this.totalItems=this.totalItems+' '+this.rowDetails.Name;
     this.ItemDataDetails.push(<ItemData>this.NameAndPrice);
-    this.userFilter.Name="";
+    this.userFilter.Name="";//--empties auto completer after every search-----
   }
 }

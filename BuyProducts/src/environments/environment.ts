@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  API_ROOT:'http://localhost:3333'
+  API_ROOT:'http://192.168.0.141:3333'
 };
-
+//192.168.0.141
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

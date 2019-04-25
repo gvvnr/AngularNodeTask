@@ -1,10 +1,56 @@
-<!--<div style="position: absolute; top: 40%; left: 45%; font-family: Arial">
-  payment succesull
 
-</div>-->
-<mat-dialog-content class="mat-typography">
-  payment successful
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="redirect()">ok</button>
-</mat-dialog-actions>
+<br>
+<br>
+<div class="text-center">
+
+<div class="row">
+  <div class="col-sm-6">
+    <mat-list>
+      <h2 mat-subheader>payment successful</h2>
+
+    </mat-list>
+  </div>
+  <div class="col-sm-5">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
+        <mat-panel-title>
+          <mat-list>
+            <h3 mat-subheader>show payment details</h3>
+
+          </mat-list>
+
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-grid-list cols="2" rowHeight="50px">
+        <mat-grid-tile>
+          <b>Purchased By</b>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{details.purchasedBy}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <b>Purchased On</b>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{details.purchasedOn}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <b>List Of Items</b>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{details.ListOfItems}}
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <b>Total Cost</b>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          {{details.total}}
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </mat-expansion-panel>
+
+    </div>
+  </div>
+</div>
+

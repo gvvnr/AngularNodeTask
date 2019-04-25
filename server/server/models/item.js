@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       targetKey:'id'
     });
   };
-/*  item.belongsTo(models.Bill,{
-    foreignKey:'bill_id',
-    targetKey:'id'
-  });*/
+/*   item.hasOne(models.BillItems,{
+     foreignKey:'item_id',
+     sourceKey:'id'
+   })*/
   return item;
 };

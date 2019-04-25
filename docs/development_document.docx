@@ -1,1 +1,13 @@
-Docx FIle
+﻿Required tools:
+
+
+(	Angular)6.9.0
+
+(Node) v11.10.0 
+
+(PostgreSQL) 9.5.14
+
+
+
+deployment instructions:
+

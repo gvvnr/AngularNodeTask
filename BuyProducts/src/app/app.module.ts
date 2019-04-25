@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { DisplayItemsComponent } from './display-items/display-items.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -15,9 +14,18 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SearchService} from "./search/search.service";
 import {QueryApi} from "./commonServices/request/QueryApi";
 import {HttpClientModule} from "@angular/common/http";
-import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatListModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import {MdDialogModule} from '@angular/material';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 const routes: Routes = [
   { path: '', redirectTo: '/search', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
@@ -27,7 +35,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     SearchComponent,
-    DisplayItemsComponent,
     HeaderComponent,
     FooterComponent,
     PaymentComponent,
@@ -46,7 +53,11 @@ const routes: Routes = [
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatListModule,
+    MatDividerModule,
+    MatGridListModule,
+    MatExpansionModule,
   ],
   exports: [ RouterModule ],
  providers: [SearchService,QueryApi],
