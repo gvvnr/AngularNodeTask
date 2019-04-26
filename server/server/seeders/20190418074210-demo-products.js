@@ -5,7 +5,7 @@ module.exports = {
 
     return queryInterface.bulkInsert('ProductModels', [{
       Name: 'laptop battery',
-      category:'electronics',
+      category:'Electronics',
       price: 3000,
       createdAt:new Date(),
       updatedAt: new Date()

@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   selectedOption:any=[1];//--each selected items item count
   ItemName:any[] = [];
   ItemDataDetails: ItemData[]=[];
-  NameAndPrice: ItemData;
+  //NameAndPrice: ItemData;
   totalBill: Bill;
   totalItems="";
   customerName:string;
@@ -107,19 +107,28 @@ cost(product){//--------------changing cost of item based on select option in th
     this.contains=true;
     this.itemsTotalCost=this.itemsTotalCost+this.ItemCost;
     this.itemCount=this.itemCount+1;
-    this.NameAndPrice = {//-----class object for storing data in Item table-------------------------
+    /*this.NameAndPrice = {//-----class object for storing data in Item table-------------------------
       product_id:this.rowDetails.id,
       quantity:this.selectedOption[this.itemCount],
       totalCost:this.ItemCost,
       itemName:this.rowDetails.Name,
       cost:this.ItemCost,
       itemCount:this.itemCount
-    };
+    };*/
     if(this.totalItems.length>0)
     this.totalItems=this.totalItems+' , '+this.rowDetails.Name;
     else
       this.totalItems=this.totalItems+' '+this.rowDetails.Name;
-    this.ItemDataDetails.push(<ItemData>this.NameAndPrice);
+   // this.ItemDataDetails.push(<ItemData>this.NameAndPrice);
+
+    this.ItemDataDetails.push({
+      product_id:this.rowDetails.id,
+      quantity:this.selectedOption[this.itemCount],
+      totalCost:this.ItemCost,
+      itemName:this.rowDetails.Name,
+      cost:this.ItemCost,
+      itemCount:this.itemCount,
+    })
     this.userFilter.Name="";//--empties auto completer after every search-----
   }
 }
