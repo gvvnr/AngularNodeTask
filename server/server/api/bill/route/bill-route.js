@@ -5,10 +5,10 @@ export default class BillRoutes {
     console.log('getting into Item routes');
     router
       .route('/bill')
-      //.get(ItemController.getAll)
+      .get(BillController.getAll)
       .post(BillController.createNew);
 
-    ;
+
   }
 
 

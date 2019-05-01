@@ -9,6 +9,7 @@ export default class BillItemsController {
       })
       .catch(error => {
         console.log('in bill-controller-catch');
+        console.log(error);
         res(error).json(error);
       })
 

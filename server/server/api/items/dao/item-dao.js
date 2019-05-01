@@ -5,14 +5,23 @@ export class ItemDao {
 
   static getAll() {
     return new Promise((resolve, reject) => {
+      /*let limit=2, offset=2;*/
       models.item.findAll({
+       /* limit: limit,
+        offset: offset,
+        $sort: { id: 1 },*/
+        include:[
 
+          {
+            model:models.ProductModel
+          }
+
+        ]
       })
         .then(users => {
           console.log(JSON.stringify(users));
           resolve(users);
         }, (error) => {
-          console.log(error);
           reject(error);
         })
     })
@@ -68,6 +77,7 @@ export class ItemDao {
           models.BillItems.bulkCreate(billList, {returning:true})
         })
         .then((list)=>{
+          console.log('DAO',list);
           resolve(list);
         })
         .catch(error => {

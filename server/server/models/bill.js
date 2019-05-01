@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       through:BillItems,
       foreignKey:'bill_id'
     })*/
+    Bill.belongsToMany(models.item,{
+      through:'BillItems',
+      foreignKey:'bill_id'
+    })
   };
   return Bill;
 };

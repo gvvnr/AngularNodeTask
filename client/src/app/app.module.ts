@@ -14,22 +14,30 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SearchService} from "./search/search.service";
 import {QueryApi} from "./commonServices/request/QueryApi";
 import {HttpClientModule} from "@angular/common/http";
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { CdkTableModule } from '@angular/cdk/table';
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+
 import {
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
-  MatListModule
+  MatListModule,
+  MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatSortModule, MatTableModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import {MdDialogModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/search', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
-  { path: 'payment', component: PaymentComponent }
+  { path: 'payment', component: PaymentComponent },
+  { path: 'previousOrders', component: PreviousOrdersComponent }
 ];
 @NgModule({
   declarations: [
@@ -39,6 +47,7 @@ const routes: Routes = [
     FooterComponent,
     PaymentComponent,
     DisplayComponent,
+    PreviousOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +67,14 @@ const routes: Routes = [
     MatDividerModule,
     MatGridListModule,
     MatExpansionModule,
+    NgxPaginationModule,
+    CdkTableModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    NgFlashMessagesModule
   ],
   exports: [ RouterModule ],
  providers: [SearchService,QueryApi],

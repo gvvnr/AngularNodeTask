@@ -34,12 +34,14 @@ export default class ItemController {
    // console.log('in controller of bulk',_reqBody["billId"]);
     ItemDao.BulkcreateNew(_reqBody, _reqBody["billId"].id)
       .then( itemDao =>{
-        console.log('then in controller');
+        console.log('then in controller',itemDao);
         res.status(201).json(itemDao);
 
       })
       .catch(error => {
+        console.log('controller error page',error);
         console.log(error);
+        res(error).json(error);
       });
 
   }

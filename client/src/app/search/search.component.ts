@@ -5,6 +5,7 @@ import {SearchService} from './search.service';
 import { Router, NavigationExtras} from "@angular/router";
 import {Bill} from './bill'
 import {MatDialog} from '@angular/material';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -49,7 +50,8 @@ cost(product){//--------------changing cost of item based on select option in th
   }
 }
   disableOrEnableButton(){//-----enabling or disabling a button based on input text field before payment------//
-  if(this.customerName.length>0)
+
+  if(this.customerName.match('[a-zA-Z0-9]'))
     this.paymentOption=false;
   else {
     this.paymentOption=true;
@@ -86,7 +88,10 @@ cost(product){//--------------changing cost of item based on select option in th
         console.log(response);
 
 
+
       });
+
+
       this.navigate(resp);
     });
 
@@ -96,6 +101,9 @@ cost(product){//--------------changing cost of item based on select option in th
       queryParams: data
     };
     this.router.navigate(['/payment'], navigationExtras);
+  }
+  previousBills(){
+  this.router.navigate(['/previousOrders'])
   }
 
 

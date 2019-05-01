@@ -1,11 +1,66 @@
 [{
   "Name" :"Laptop Accessoris",
   "category":"Electronics",
-  "price": 3000
+  "price": 1000
 },
   {
     "Name" :"TeleVision",
     "category":"Electronics",
     "price": 7000
 
-  }]
+  },
+  {
+    "Name" :"CoolDrinks",
+    "category":"Drinks",
+    "price": 100
+  },
+  {
+    "Name" :"Shampoo",
+    "category":"Body",
+    "price": 10
+
+  },{
+  "Name" :"Oil",
+  "category":"Body",
+  "price": 80
+},
+  {
+    "Name" :"Paste",
+    "category":"Body",
+    "price": 40
+
+  },
+  {
+    "Name" :"Soap",
+    "category":"Body",
+    "price": 50
+  },
+  {
+    "Name" :"Charger",
+    "category":"Electronics",
+    "price": 450
+
+  },
+  {
+    "Name" :"Laptop",
+    "category":"Electronics",
+    "price": 4000
+  },
+  {
+    "Name" :"Laptop Battery",
+    "category":"Electronics",
+    "price": 3000
+
+  },
+  {
+    "Name" :"Pen",
+    "category":"Stationary",
+    "price": 20
+  },
+  {
+    "Name" :"Book",
+    "category":"Stationary",
+    "price": 40
+
+  }
+]

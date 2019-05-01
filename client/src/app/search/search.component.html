@@ -1,12 +1,12 @@
 <br>
 
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-1">
+
   </div>
-  <div class="col-sm-9">
 
+  <div class="col-sm-9" *ngIf="ItemName">
 
-      <div *ngIf="ItemName" >
         <form class="example-form" >
          <div class="form-group">
           <mat-form-field class="example-full-width">
@@ -22,81 +22,69 @@
           </mat-form-field>
          </div>
         </form>
-                  <div *ngIf="contains">
-<!--                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs-->
+    <div *ngIf="contains">
+      <!--                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs-->
 
+      <br>
+      <div  class="col-sm-12">
+        <table class="table">
+          <tr>
+            <th>
+              ItemName
+            </th>
+            <th>
+              Quantity
+            </th>
+            <th>
+              TotalCost
+            </th>
+          </tr>
+
+
+          <tr *ngFor="let itemAndDetails of ItemDataDetails">
+            <td>
+              {{itemAndDetails.itemName}}
+            </td>
+            <td>
+              <select [(ngModel)]="selectedOption[itemAndDetails.itemCount]" class="form-control" (click)="cost(itemAndDetails)">
+
+                <option *ngFor="let countOfItems of count">
+                  {{countOfItems}}
+                </option>
+              </select>
+
+              <!--                  {{itemAndDetails.quantity}}-->
+            </td>
+            <td>
+              {{itemAndDetails.totalCost}}
+            </td>
+          </tr>
+
+
+
+
+
+        </table>
+        <table class="table">
+          <tr>
+            <th>Total Cost</th>
+            <td>{{itemsTotalCost}}</td>
+            <td></td>
+          </tr>
+
+        </table>
         <br>
-        <div  class="col-sm-12">
-          <table class="table">
-            <tr>
-              <th>
-                ItemName
-              </th>
-              <th>
-                Quantity
-              </th>
-              <th>
-                TotalCost
-              </th>
-            </tr>
 
-
-              <tr *ngFor="let itemAndDetails of ItemDataDetails">
-                <td>
-                  {{itemAndDetails.itemName}}
-                </td>
-                <td>
-                  <select [(ngModel)]="selectedOption[itemAndDetails.itemCount]" class="form-control" (click)="cost(itemAndDetails)">
-
-                    <option *ngFor="let countOfItems of count">
-                      {{countOfItems}}
-                    </option>
-                  </select>
-
-<!--                  {{itemAndDetails.quantity}}-->
-                </td>
-                <td>
-                  {{itemAndDetails.totalCost}}
-                </td>
-              </tr>
-
-
-
-
-
-          </table>
-          <table class="table">
-            <tr>
-              <th>Total cost</th>
-              <td>{{itemsTotalCost}}</td>
-              <td></td>
-            </tr>
-
-          </table>
-          <br>
-          <!--<div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Customer Name</span>
-            </div>
-            <input type="text" class="form-control col-sm-4" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
-                   [(ngModel)]="customerName" >
+        <div class="form-group row">
+          <div class="col-sm-2"><label>Customer Name:</label></div>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
+                   [(ngModel)]="customerName"  (input)="disableOrEnableButton()" >
           </div>
 
-          <br>
+        </div>
 
-
-
-        </div>-->
-          <div class="form-group row">
-            <div class="col-sm-2"><label>Customer Name:</label></div>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
-                     [(ngModel)]="customerName"  (input)="disableOrEnableButton()" >
-            </div>
-
-          </div>
-
-          <button (click)="makePayment()" class="btn btn-light" [disabled]="paymentOption">make Payment</button>
+        <button (click)="makePayment()" class="btn btn-light" [disabled]="paymentOption">Make Payment</button>
 
 
 
@@ -105,8 +93,18 @@
 
 
 
+    </div>
+
+
+</div>
+
+
+
+
+
+  <div class="col-sm-2">
+    <button (click)="previousBills()" class="btn btn-info" >Previous Bills</button>
+
   </div>
-
 </div>
 
-</div>

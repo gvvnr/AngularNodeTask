@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   ProductModel.associate = function(models) {
     // associations can be defined here
-    ProductModel.hasOne(models.item,{
+    ProductModel.hasMany(models.item,{
       foreignKey:'product_id',
       sourceKey:'id'
     })

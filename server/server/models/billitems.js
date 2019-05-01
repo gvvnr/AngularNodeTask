@@ -7,13 +7,14 @@ module.exports = (sequelize, DataTypes) => {
   BillItems.associate = function(models) {
     // associations can be defined here
     BillItems.belongsTo(models.item ,{
-      foreignKey:'bill_id',
+      foreignKey:'item_id',
       targetKey:'id'
     });
     BillItems.belongsTo(models.Bill,{
-      foreignKey:'item_id',
+      foreignKey:'bill_id',
       targetKey:'id'
-    })
+    });
+
 
   };
   return BillItems;

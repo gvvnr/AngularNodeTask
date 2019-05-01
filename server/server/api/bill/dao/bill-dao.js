@@ -2,11 +2,23 @@ import Promise from "bluebird";
 import models from "../../../models"
 export class BillDao {
 
+
+  static getAll() {
+    return new Promise((resolve, reject) => {
+      models.Bill.findAll({
+
+      })
+        .then(users => {
+          console.log(JSON.stringify(users));
+          resolve(users);
+        }, (error) => {
+          reject(error);
+        })
+    })
+  }
+
   static createNew(request) {
-    console.log('--------------');
-    //let i:any;
-    console.log('aa');
-  //  console.log(request[0]);
+
     return new Promise((resolve, reject) => {
       models.Bill.create({
 
@@ -29,14 +41,3 @@ export class BillDao {
   }
 
 }
-/*
-* models.Bill.create({
-
-        purchasedBy:request.purchasedBy,
-        purchasedOn:request.purchasedOn,
-        ListOfItems:request.listOfItems,
-        total:request.itemsTotalCost
-
-
-
-      })*/

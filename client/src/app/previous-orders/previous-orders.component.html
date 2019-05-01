@@ -1,0 +1,97 @@
+<div align="center">
+  <b>Previous Orders Details</b>
+</div>
+<!--
+<div *ngIf="previousBills">
+  <table class="table">
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        PurchasedBy
+      </th>
+
+      <th>
+        PurchasedOn
+      </th>
+      <th>
+        ListOfItems
+
+      </th>
+
+      <th>
+        TotalCost
+
+      </th>
+    </tr>
+
+    <tr *ngFor="let order of previousBills | paginate: { itemsPerPage: 3, currentPage: p }" >
+      &lt;!&ndash;| paginate: { itemsPerPage: 5, currentPage: p }"&ndash;&gt;
+      <td>
+        {{order.id}}
+      </td>
+      <td>
+        {{order.purchasedBy}}
+      </td>
+      <td>
+        {{order.purchasedOn}}
+      </td>
+      <td>
+        {{order.ListOfItems}}
+      </td>
+      <td>
+        {{order.total}}
+      </td>
+
+
+    </tr>
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+
+  </table>
+
+</div>
+-->
+<div *ngIf="previousBills">
+
+</div>
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="previousBills">
+  <ng-container matColumnDef="purchasedBy">
+    <mat-header-cell *matHeaderCellDef>purchasedBy</mat-header-cell>
+    <mat-cell *matCellDef="let billDetails">{{billDetails.purchasedBy}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="ListOfItems">
+    <mat-header-cell *matHeaderCellDef>ListOfItems</mat-header-cell>
+    <mat-cell *matCellDef="let billDetails">{{billDetails.ListOfItems}}</mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="total">
+    <mat-header-cell *matHeaderCellDef>TotalCost</mat-header-cell>
+    <mat-cell *matCellDef="let billDetails">{{billDetails.total}}</mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>id</mat-header-cell>
+    <mat-cell *matCellDef="let billDetails">{{billDetails.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="purchasedOn">
+    <mat-header-cell *matHeaderCellDef>purchasedOn</mat-header-cell>
+    <mat-cell *matCellDef="let billDetails">{{billDetails.purchasedOn}}</mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+

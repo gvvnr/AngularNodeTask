@@ -1,3 +1,4 @@
+
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const item = sequelize.define('item', {
@@ -7,15 +8,25 @@ module.exports = (sequelize, DataTypes) => {
    // bill_id: DataTypes.INTEGER
   }, {});
   item.associate = function(models) {
+
     // associations can be defined here
     item.belongsTo(models.ProductModel,{
       foreignKey:'product_id',
       targetKey:'id'
     });
+
+
+    item.belongsToMany(models.Bill,{
+      through:'BillItems',
+      foreignKey:'item_id'
+    });
+
+
   };
 /*   item.hasOne(models.BillItems,{
      foreignKey:'item_id',
      sourceKey:'id'
    })*/
+
   return item;
 };

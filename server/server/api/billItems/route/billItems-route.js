@@ -8,7 +8,7 @@ export default class BillItemsRoutes {
       .get(BillItemsController.getAll)
       .post(BillItemsController.createNew);
 
-    ;
+
   }
 
 
