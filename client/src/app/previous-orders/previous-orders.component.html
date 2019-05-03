@@ -1,7 +1,6 @@
 <div align="center">
   <b>Previous Orders Details</b>
 </div>
-<!--
 <div *ngIf="previousBills">
   <table class="table">
     <tr>
@@ -26,8 +25,8 @@
       </th>
     </tr>
 
-    <tr *ngFor="let order of previousBills | paginate: { itemsPerPage: 3, currentPage: p }" >
-      &lt;!&ndash;| paginate: { itemsPerPage: 5, currentPage: p }"&ndash;&gt;
+    <tr *ngFor="let order of previousBills | paginate: {itemsPerPage: 5, currentPage: p, totalItems:total}" >
+      <!--| paginate: { itemsPerPage: 5, currentPage: p }"-->
       <td>
         {{order.id}}
       </td>
@@ -47,7 +46,7 @@
 
     </tr>
 
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
 
 
 
@@ -55,7 +54,7 @@
   </table>
 
 </div>
--->
+<!--
 <div *ngIf="previousBills">
 
 </div>
@@ -95,3 +94,4 @@
 
 </mat-table>
 
+-->

@@ -18,6 +18,15 @@ export class SearchService {
        );
   }
 
+  getImage(): Observable <any> {
+    let req;
+    return this.queryApi.doGet('GET_IMAGE', req)
+      .pipe(
+        catchError(err => of([err]))
+      );
+  }
+
+
   createItemData(ItemData,billData): Observable <any>{
     let req;
     console.log('in service');

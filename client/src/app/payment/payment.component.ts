@@ -17,19 +17,15 @@ export class PaymentComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.details = params;
-      console.log('params',params)
-      this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
+      console.log('params',params);
 
     });
 
     this.ngFlashMessageService.showFlashMessage({
-      // Array of messages each will be displayed in new line
+
       messages: ["Yah! i'm alive"],
-      // Whether the flash can be dismissed by the user defaults to false
       dismissible: true,
-      // Time after which the flash disappears defaults to 2000ms
       timeout: 10000,
-      // Type of flash message, it defaults to info and success, warning, danger types can also be used
       type: 'danger'
     });
 

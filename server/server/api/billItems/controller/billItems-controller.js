@@ -3,9 +3,12 @@ import {BillItemsDao} from "../dao/billItems-dao";
 export default class BillItemsController {
   static getAll(req, res) {
     console.log('in bill-controller');
-    BillItemsDao.getAll()
+    console.log(req.query);
+    BillItemsDao.findAndCountAll(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage))//req.body.page
       .then(products => {
+        console.log(products);
         res.status(201).json(products);
+
       })
       .catch(error => {
         console.log('in bill-controller-catch');

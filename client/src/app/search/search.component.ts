@@ -67,6 +67,14 @@ cost(product){//--------------changing cost of item based on select option in th
     });
 
   }
+  /*selectedFile:File;
+  processFile(img){
+  console.log(img.target.files[0]);
+  this.selectedFile=img.target.files[0];
+  this.searchData.getImage().subscribe( imageData =>{
+    console.log(imageData);
+  })
+  }*/
 
   makePayment(){ //--------------------inserting data into bill and item tables----------------//
     this.totalBill={

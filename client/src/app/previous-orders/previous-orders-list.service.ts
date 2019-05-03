@@ -11,9 +11,17 @@ export class PreviousOrdersListService {
 
   constructor(private queryApi: QueryApi) { }
 
-  getBillData(): Observable <any> {
+  getBillData(pageData): Observable <any> {
     let req;
-    return this.queryApi.doGet('BILLDATA', req)
+    return this.queryApi.doGet('BILLDATA', pageData)
+      .pipe(
+        catchError(err => of([err]))
+      );
+  }
+
+  getBillItemData(pageData): Observable <any> {
+    let req;
+    return this.queryApi.doGet('BILLITEMDATA', pageData)
       .pipe(
         catchError(err => of([err]))
       );

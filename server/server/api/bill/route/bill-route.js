@@ -7,6 +7,10 @@ export default class BillRoutes {
       .route('/bill')
       .get(BillController.getAll)
       .post(BillController.createNew);
+    router
+      .route('/bill/img')
+      .post(BillController.createNewImage)
+    .get(BillController.getImage);
 
 
   }

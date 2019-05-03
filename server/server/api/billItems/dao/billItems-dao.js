@@ -1,28 +1,49 @@
 import Promise from "bluebird";
 import models from "../../../models"
 export class BillItemsDao {
-  static getAll() {
+
+  static findAndCountAll(pageData,limit) {
+
     return new Promise((resolve, reject) => {
-      models.BillItems.findAll({
-        include:[
+      console.log('billItems DAO');
+    //  let limit=5;
+      models.BillItems.findAll()
+        .then(data=>{
+          let page = pageData;      // page number
+          let pages = Math.ceil(data.count / limit);
+          let offset = limit * (page - 1);
+          models.BillItems.findAll({
+            limit: limit,
+            offset: offset,
+            order: [
+              ['createdAt', 'DESC'],
 
-/*          {
-            model:models.Bill
-          },*/
-          {
-            model:models.item,
-            include:[{model:models.ProductModel}]
-          }
+            ],
+            include:[
 
-          ]
+              {
+                model:models.Bill
+              },
+              {
+                model:models.item,
+                include:[{model:models.ProductModel}]
+              }
 
-      })
-        .then(users => {
-          //console.log(JSON.stringify(users));
-          resolve(users);
-        }, (error) => {
+            ]
+          }).then(result =>{
+
+            resolve(result);
+          })
+            .catch(err =>{
+              reject(err);
+            });
+
+        },
+          )
+        .catch(error=>{
           reject(error);
         })
+
     })
   }
 
@@ -30,3 +51,18 @@ export class BillItemsDao {
 
 
 }
+/* offset: parseInt(val), limit: 2,
+  order: [
+    ['id', 'DESC']
+  ],*/
+/* include:[
+
+   {
+     model:models.Bill
+   },
+   {
+     model:models.item,
+     include:[{model:models.ProductModel}]
+   }
+
+   ]*/
