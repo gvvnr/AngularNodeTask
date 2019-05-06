@@ -14,9 +14,6 @@ module.exports = {
       purchasedOn: {
         type: Sequelize.STRING
       },
-      ListOfItems: {
-        type: Sequelize.STRING
-      },
       total: {
         type: Sequelize.INTEGER
       },

@@ -58,10 +58,11 @@ export class ItemDao {
     return new Promise((resolve, reject) => {
       var productList = [];
       for(let i=0;i<request.itemValues.length;i++){
+
         productList.push({
           product_id:request.itemValues[i].product_id,
           quantity: request.itemValues[i].quantity,
-          totalCost:request.itemValues[i].totalCost
+          totalCost:request.itemValues[i].cost
 
         })
       }

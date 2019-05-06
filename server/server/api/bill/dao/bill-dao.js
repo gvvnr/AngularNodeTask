@@ -1,6 +1,31 @@
 import Promise from "bluebird";
 import models from "../../../models"
+
 export class BillDao {
+
+
+  static getById(_paramet) {
+    return new Promise((resolve, reject) => {
+      models.Bill.findAll({where : { id: _paramet},
+          include:[
+
+            {
+              model:models.item,
+              include:[{model:models.ProductModel}]
+            }
+          ]
+      },
+
+        )
+        .then(post => {
+          resolve(post);
+        })
+        .catch(error => {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
 
 
   static findAndCountAll(pageData,limit) {
@@ -9,6 +34,7 @@ export class BillDao {
 
       })
         .then( data =>{
+         console.log(data.count,'DATA COUNT');
           let page = pageData;      // page number
           let pages = Math.ceil(data.count / limit);
           let offset = limit * (page - 1);
@@ -18,7 +44,14 @@ export class BillDao {
             offset: offset,
             order: [
               ['createdAt', 'DESC']
-            ]
+            ],
+            include:[
+
+              {
+                model:models.item,
+                include:[{model:models.ProductModel}]
+              }
+              ]
           })
             .then(result =>{
               resolve(result);
@@ -28,15 +61,8 @@ export class BillDao {
             });
         })
 
-/*        .then(users => {
-          console.log(JSON.stringify(users));
-          resolve(users);
-        }, (error) => {
-          reject(error);
-        })*/
     })
   }
-//findAndCountAllImage
   static findAndCountAllImage(pageData,limit) {
     return new Promise((resolve, reject) => {
       models.ExamplePhoto.findAndCountAll({
@@ -50,33 +76,10 @@ export class BillDao {
     })
   }
 
-  static createNewImage(request) {
 
-    return new Promise((resolve, reject) => {
-      //console.log(request);
-      console.log('image---------------------');
-      //console.log(request.name);
-      models.ExamplePhoto.create({
-
-
-
-
-        photo:request
-
-      }).then(body => {
-        console.log('image then');
-        console.log(body.photo);
-        resolve(body);
-
-      })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  }
 
   static createNew(request) {
-
+  console.log('In Bill DAO');
     return new Promise((resolve, reject) => {
       models.Bill.create({
 
@@ -85,7 +88,6 @@ export class BillDao {
 
         purchasedBy:request.purchasedBy,
         purchasedOn:request.purchasedOn,
-        ListOfItems:request.listOfItems,
         total:request.itemsTotalCost
 
       }).then(body => {

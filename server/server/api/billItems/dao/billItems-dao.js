@@ -7,12 +7,12 @@ export class BillItemsDao {
     return new Promise((resolve, reject) => {
       console.log('billItems DAO');
     //  let limit=5;
-      models.BillItems.findAll()
+      models.Bill.findAll()
         .then(data=>{
           let page = pageData;      // page number
           let pages = Math.ceil(data.count / limit);
           let offset = limit * (page - 1);
-          models.BillItems.findAll({
+          models.Bill.findAndCountAll({
             limit: limit,
             offset: offset,
             order: [
@@ -22,12 +22,13 @@ export class BillItemsDao {
             include:[
 
               {
-                model:models.Bill
+                model:models.item
+                //BillItems//Bill
               },
-              {
+              /*{
                 model:models.item,
                 include:[{model:models.ProductModel}]
-              }
+              }*/
 
             ]
           }).then(result =>{

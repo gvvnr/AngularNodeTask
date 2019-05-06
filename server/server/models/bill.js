@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   const Bill = sequelize.define('Bill', {
     purchasedBy: DataTypes.STRING,
     purchasedOn: DataTypes.STRING,
-    ListOfItems: DataTypes.STRING,
     total: DataTypes.INTEGER
   }, {});
   Bill.associate = function(models) {
@@ -16,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     Bill.belongsToMany(models.item,{
       through:'BillItems',
       foreignKey:'bill_id'
-    })
+    });
+    /*Bill.hasMany(models.BillItems,{
+      foreignKey:'bill_id',
+      sourceKey:'id'
+    });*/
   };
   return Bill;
 };
