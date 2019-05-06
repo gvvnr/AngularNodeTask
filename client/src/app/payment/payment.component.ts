@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router,ActivatedRoute} from "@angular/router";
 //import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgFlashMessageService } from 'ng-flash-messages';
+import {PreviousOrdersListService} from '../previous-orders/previous-orders-list.service'
 
 @Component({
   selector: 'app-payment',
@@ -12,36 +13,31 @@ export class PaymentComponent implements OnInit {
 
   details:any;
   breakpoint:any;
-  constructor(private router: Router,private route :ActivatedRoute,private ngFlashMessageService: NgFlashMessageService) { }
+  billData:Data;
+  order:any;
+  constructor(private router: Router,private route :ActivatedRoute,private previousOrders :PreviousOrdersListService) { }
 //, private flashMessagesService: FlashMessagesService
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.details = params;
-      console.log('params',params);
+      this.billData={
+        id:params.id
+      };
+      this.previousOrders.getBillDataById(this.billData).subscribe(result =>{
 
+        this.order=result;
+        console.log(this.order)
+      });
     });
 
-    this.ngFlashMessageService.showFlashMessage({
 
-      messages: ["Yah! i'm alive"],
-      dismissible: true,
-      timeout: 10000,
-      type: 'danger'
-    });
 
-/*    this.flashMessagesService.show('My component has initialized!', {
-      classes: ['alert', 'alert-warning'], // You can pass as many classes as you need
-      timeout: 1000, // Default is 3000
-    });*/
-  }
-  redirect(){
-    this.router.navigate(['/search']);
-  }
-
-  onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 6;
   }
 
 
 }
 
+
+export class Data{
+  id:number;
+}

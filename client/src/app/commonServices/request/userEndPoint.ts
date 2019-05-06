@@ -5,8 +5,8 @@ export const BILLDATA='INSERT_BILL_DATA';
 export const BULKINSERT='BULK_INSERT_ITEM_DATA';
 export const BILLGETDATA='BILLDATA';
 export const BILLITEMDATA='BILLITEMDATA';//BILLDATA
-export const IMAGERETRIVE='GET_IMAGE';
-export const UserEndPoint = (type: string) => {
+export const BILLDATABYID='BILLDATABYID';
+export const UserEndPoint = (type: string, params:any) => {
   const endpoints = {
     [BILLGETDATA]:'/bill',
     [PDATA]: '/product',
@@ -15,7 +15,7 @@ export const UserEndPoint = (type: string) => {
     [BULKINSERT]:'/bulkInsert',///BILLDATA
     //[BILLGETDATA]:'/bill'
     [BILLITEMDATA]:'/billItems',
-    [IMAGERETRIVE]:'/bill/img'
+    [BILLDATABYID]:'/bill/id'
   };
   console.log("----> user endpoint");
   console.log(environment.API_ROOT + endpoints[type]);

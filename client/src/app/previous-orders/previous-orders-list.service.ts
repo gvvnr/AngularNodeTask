@@ -19,6 +19,17 @@ export class PreviousOrdersListService {
       );
   }
 
+  //getBillDataById
+
+  getBillDataById(pageData): Observable <any> {
+    let req;
+    return this.queryApi.doGet('BILLDATABYID', pageData)
+      .pipe(
+        catchError(err => of([err]))
+      );
+  }
+
+
   getBillItemData(pageData): Observable <any> {
     let req;
     return this.queryApi.doGet('BILLITEMDATA', pageData)

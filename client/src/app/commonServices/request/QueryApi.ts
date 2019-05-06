@@ -7,14 +7,14 @@ export class QueryApi {
   constructor(private http: HttpClient) { }
 
   doGet(url: string,  params: any) {
-    url = UserEndPoint(url);
+    url = UserEndPoint(url,params);
     console.log('query API',url);
     return this.http.get(url, {params: params});
   }
 
 
   doPost(url: string, params: any, headers?: any) {
-    url = UserEndPoint(url);
+    url = UserEndPoint(url,params);
     return this.http.post(url, params, headers);
   }
 

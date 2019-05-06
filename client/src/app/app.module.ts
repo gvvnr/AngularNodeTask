@@ -32,9 +32,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import {MdDialogModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
+import { ItemsCostPipe } from './items-cost.pipe';
+import { TotalItemsPipe } from './total-items.pipe';
+import { ListOfItemsPipe } from './list-of-items.pipe';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/search', pathMatch: 'full' },
+  { path: '', redirectTo: '/previousOrders', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'previousOrders', component: PreviousOrdersComponent }
@@ -48,6 +51,9 @@ const routes: Routes = [
     PaymentComponent,
     DisplayComponent,
     PreviousOrdersComponent,
+    ItemsCostPipe,
+    TotalItemsPipe,
+    ListOfItemsPipe,
   ],
   imports: [
     BrowserModule,

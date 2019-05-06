@@ -18,10 +18,11 @@
         ListOfItems
 
       </th>
-
       <th>
-        TotalCost
-
+        Total Price
+      </th>
+      <th>
+        Quantity
       </th>
     </tr>
 
@@ -36,12 +37,26 @@
       <td>
         {{order.purchasedOn}}
       </td>
-      <td>
-        {{order.ListOfItems}}
+      <td >
+
+        {{order.items | listOfItems}}
       </td>
       <td>
-        {{order.total}}
+
+
+            {{order.items | itemsCost}}
+
+
       </td>
+      <td>
+        {{order.items | totalItems}}
+      </td>
+
+
+      <td>
+
+      </td>
+
 
 
     </tr>

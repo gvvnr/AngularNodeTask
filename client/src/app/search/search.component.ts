@@ -18,15 +18,13 @@ export class SearchComponent implements OnInit {
   rowDetails: any;
   ItemCost: number;
   contains: any;// if item is present displays the table
-  selectedOption:any=[1];//--each selected items item count
   ItemName:any[] = [];
   ItemDataDetails: ItemData[]=[];
-  //NameAndPrice: ItemData;
   totalBill: Bill;
   totalItems="";
   customerName:string;
   itemsTotalCost=0;
-  itemCount=-1;
+  //itemCount=-1;
   paymentOption=true;
   days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
@@ -36,30 +34,17 @@ ngOnInit() {
   this.asign();
 
 }
-cost(product){//--------------changing cost of item based on select option in the table-----------//
-
-
-
+cost(product){//--------------changing cost of item based on selected option in the table-----------//
   for(let i=0;i<this.ItemName.length;i++){
     if(this.ItemName[i].Name==product.itemName){
-      this.itemsTotalCost=this.itemsTotalCost-product.totalCost;
-      product.totalCost=product.cost*this.selectedOption[product.itemCount];
-      this.itemsTotalCost=this.itemsTotalCost+product.totalCost;
-      product.quantity=this.selectedOption[product.itemCount];
+      this.itemsTotalCost=this.itemsTotalCost-product.cost;
+      product.cost=this.ItemName[i].price*product.quantity;
+      this.itemsTotalCost=this.itemsTotalCost+product.cost;
     }
+
   }
 }
-  disableOrEnableButton(){//-----enabling or disabling a button based on input text field before payment------//
 
-  if(this.customerName.match('[a-zA-Z0-9]'))
-    this.paymentOption=false;
-  else {
-    this.paymentOption=true;
-
-
-  }
-
-  }
 
   asign(){//-------getting all rows from data base------------------------//
     this.searchData.getProductData().subscribe((response)=>{
@@ -67,84 +52,141 @@ cost(product){//--------------changing cost of item based on select option in th
     });
 
   }
-  /*selectedFile:File;
-  processFile(img){
-  console.log(img.target.files[0]);
-  this.selectedFile=img.target.files[0];
-  this.searchData.getImage().subscribe( imageData =>{
-    console.log(imageData);
-  })
-  }*/
+
+  removeItem(itemAndDetails){// deleting particular row in item table before making payment
+    for(let i=0;i<this.ItemDataDetails.length;i++){
+      if(this.ItemDataDetails[i]==itemAndDetails){
+        console.log('After removing');
+        this.itemsTotalCost=this.itemsTotalCost-itemAndDetails.cost;
+        console.log(this.ItemDataDetails.splice(i,1));
+      }
+    }
+    if(this.ItemDataDetails.length==0){
+      this.contains=false;
+    }
+
+  }
+
+
+  itemNames(row){  //------Adding Items into Item tables
+  for(let i=0; i<this.ItemDataDetails.length;i++){
+    if(this.ItemDataDetails[i].itemName==row.Name){
+      if(this.ItemDataDetails[i].quantity<5){
+        this.ItemDataDetails[i].quantity=this.ItemDataDetails[i].quantity+1;
+        this.userFilter.Name="";
+        return;
+      }
+
+      else{
+        this.ItemDataDetails.push({
+          product_id:row.id,
+          quantity:1,
+          cost:row.price,
+          itemName:row.Name
+        });
+        console.log(this.ItemDataDetails);
+        this.contains=true;
+        this.itemsTotalCost=this.itemsTotalCost+row.price;
+
+        this.userFilter.Name="";//--empties auto completer after every search-----
+  return;
+
+      }
+    }
+  }
+
+    this.ItemDataDetails.push({
+      product_id:row.id,
+      quantity:1,
+      cost:row.price,
+      itemName:row.Name
+    });
+    console.log('after Item');
+    console.log(this.ItemDataDetails);
+    this.contains=true;
+    this.itemsTotalCost=this.itemsTotalCost+row.price;
+
+    this.userFilter.Name="";//--empties auto completer after every search-----
+
+  }
+
+
+
+
+
 
   makePayment(){ //--------------------inserting data into bill and item tables----------------//
+
     this.totalBill={
       purchasedBy: this.customerName,
       purchasedOn: this.days[new Date().getDay()],
-      listOfItems:this.totalItems,
       itemsTotalCost:this.itemsTotalCost
     };
+    console.log(this.totalBill);
     this.searchData.createBillData(this.totalBill).subscribe(resp =>{
-      console.log('rrr',resp);
-      /*this.searchData.createItemData(this.ItemDataDetails,resp).subscribe(response => {
-        console.log('create item response');
-        console.log(response);
 
-
-      });*/
       this.searchData.bulkCreateItemData(this.ItemDataDetails,resp).subscribe(response => {
-        console.log('bulk create item response');
         console.log(response);
-
-
+        this.navigate(resp);
 
       });
 
 
-      this.navigate(resp);
     });
 
   }
+
   navigate(data) {//---------navigating to payment page by taking some required data----------------------
     let navigationExtras: NavigationExtras = {
       queryParams: data
     };
+    console.log(navigationExtras);
     this.router.navigate(['/payment'], navigationExtras);
   }
+  /*this.searchData.createItemData(this.ItemDataDetails,resp).subscribe(response => {
+    console.log('create item response');
+    console.log(response);
+
+
+  });*/
+
+
   previousBills(){
-  this.router.navigate(['/previousOrders'])
+    this.router.navigate(['/previousOrders'])
   }
 
 
 
-  itemNames(row){//
-    this.selectedOption.push(1);
-    this.rowDetails=row;
-    this.ItemCost=this.rowDetails.price;
-    this.contains=true;
-    this.itemsTotalCost=this.itemsTotalCost+this.ItemCost;
-    this.itemCount=this.itemCount+1;
-    /*this.NameAndPrice = {//-----class object for storing data in Item table-------------------------
-      product_id:this.rowDetails.id,
-      quantity:this.selectedOption[this.itemCount],
-      totalCost:this.ItemCost,
-      itemName:this.rowDetails.Name,
-      cost:this.ItemCost,
-      itemCount:this.itemCount
-    };*/
-    if(this.totalItems.length>0)
-    this.totalItems=this.totalItems+' , '+this.rowDetails.Name;
-    else
-      this.totalItems=this.totalItems+' '+this.rowDetails.Name;
-   // this.ItemDataDetails.push(<ItemData>this.NameAndPrice);
 
-    this.ItemDataDetails.push({
-      product_id:this.rowDetails.id,
-      quantity:this.selectedOption[this.itemCount],
-      totalCost:this.ItemCost,
-      itemName:this.rowDetails.Name,
-      cost:this.ItemCost,
-      itemCount:this.itemCount,
-    })
-    this.userFilter.Name="";//--empties auto completer after every search-----
+
+
+
+
+
+  disableOrEnableButton(){//-----enabling or disabling a button based on input text field before payment------//
+
+    if(this.customerName.match('[a-zA-Z0-9]'))
+      this.paymentOption=false;
+    else {
+      this.paymentOption=true;
+
+
+    }
+
   }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

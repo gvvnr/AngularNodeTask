@@ -1,30 +1,34 @@
 <br>
-
+<div class="container">
 
 <div class="row">
-  <div class="col-sm-1">
+  <div class="col-lg-1">
 
   </div>
 
-  <div class="col-sm-9" *ngIf="ItemName">
-
-        <form class="example-form" >
-         <div class="form-group">
+  <div class="col-lg-9" >
+    <div *ngIf="ItemName">
+      <form class="example-form" >
+        <div class="form-group">
           <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one"  matInput [formControl]="myControl" [matAutocomplete]="auto"
-                   class="form-control "  [(ngModel)]="userFilter.Name"> <!--aria-label="Number"-->
+            <input type="text" placeholder="Select Item"  matInput [formControl]="myControl" [matAutocomplete]="auto"
+                   class="form-control "  [(ngModel)]="userFilter.Name">
 
 
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)">
+<!--              <label for="autoCompleteInput"></label>-->
+              <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)" id="autoCompleteInput" >
                 {{option.Name}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-         </div>
-        </form>
+        </div>
+      </form>
+
+    </div>
+
+
     <div *ngIf="contains">
-      <!--                    Item is present and the cost of Item is &nbsp;<b>{{ItemCost}}</b> rs-->
 
       <br>
       <div  class="col-sm-12">
@@ -39,32 +43,30 @@
             <th>
               TotalCost
             </th>
+            <th>
+              RemoveItems
+            </th>
           </tr>
-
-
           <tr *ngFor="let itemAndDetails of ItemDataDetails">
             <td>
               {{itemAndDetails.itemName}}
             </td>
             <td>
-              <select [(ngModel)]="selectedOption[itemAndDetails.itemCount]" class="form-control" (click)="cost(itemAndDetails)">
+              <select [(ngModel)]="itemAndDetails.quantity" class="form-control" (click)="cost(itemAndDetails)" >
 
                 <option *ngFor="let countOfItems of count">
                   {{countOfItems}}
                 </option>
               </select>
 
-              <!--                  {{itemAndDetails.quantity}}-->
             </td>
             <td>
-              {{itemAndDetails.totalCost}}
+              {{itemAndDetails.cost}}
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="removeItem(itemAndDetails)">Remove</button>
             </td>
           </tr>
-
-
-
-
-
         </table>
         <table class="table">
           <tr>
@@ -87,7 +89,6 @@
 
         <button (click)="makePayment()" class="btn btn-light" [disabled]="paymentOption">Make Payment</button>
 
-<!--        <input #imageInput type="file" accept="image/*" (change)="processFile($event)">-->
 
       </div>
 
@@ -97,14 +98,9 @@
 
 
 </div>
-
-
-
-
-
-  <div class="col-sm-2">
+  <div class="col-lg-2">
     <button (click)="previousBills()" class="btn btn-info" >Previous Bills</button>
 
   </div>
 </div>
-
+</div>

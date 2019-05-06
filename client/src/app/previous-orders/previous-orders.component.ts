@@ -29,18 +29,17 @@ export class PreviousOrdersComponent implements OnInit {
       itemsPerPage:5
     };
 
-
-   console.log('hi');
-    /*this.previousOrders.getBillData(this.page).subscribe(result =>{
-      console.log('qqq');
+    this.previousOrders.getBillData(this.page).subscribe(result =>{
+      console.log(result)
       this.previousBills=result["rows"];
-      console.log(result);
-      console.log('ajsdfkl');
+      console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
       this.total=result["count"];
-      console.log('total',this.total);
-    //  console.log(result.count)
-    })*/
+    });
 
+    /*
+    console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
+
+          console.log('total',result["rows"][0]["items"][0]["ProductModel"].length());
     console.log(this.page);
     this.previousOrders.getBillItemData(this.page).subscribe(result =>{
       console.log('finally::')
@@ -48,7 +47,7 @@ export class PreviousOrdersComponent implements OnInit {
        this.previousBills=result;
       console.log(this.previousBills);
       }
-    )
+    )*/
 
   }
 
