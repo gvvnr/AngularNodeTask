@@ -17,16 +17,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import {
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
   MatDividerModule,
-  MatExpansionModule,
   MatListModule,
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule
+  MatSortModule, MatTableModule, MatNativeDateModule, MatIconModule, MatSelectModule, MatOptionModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import {MdDialogModule} from '@angular/material';
@@ -35,12 +34,15 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { ItemsCostPipe } from './items-cost.pipe';
 import { TotalItemsPipe } from './total-items.pipe';
 import { ListOfItemsPipe } from './list-of-items.pipe';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/previousOrders', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
   { path: 'payment', component: PaymentComponent },
-  { path: 'previousOrders', component: PreviousOrdersComponent }
+  { path: 'previousOrders', component: PreviousOrdersComponent },
+  { path:'specificOrderDetails',component:OrderDetailsComponent},
+  { path:'**',component: PreviousOrdersComponent}
 ];
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ const routes: Routes = [
     ItemsCostPipe,
     TotalItemsPipe,
     ListOfItemsPipe,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,6 @@ const routes: Routes = [
     MatListModule,
     MatDividerModule,
     MatGridListModule,
-    MatExpansionModule,
     NgxPaginationModule,
     CdkTableModule,
     MatInputModule,
@@ -80,9 +82,16 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    NgFlashMessagesModule
+    NgFlashMessagesModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatSelectModule,
+    MatOptionModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatExpansionModule
   ],
-  exports: [ RouterModule ],
+  exports: [ RouterModule],
  providers: [SearchService,QueryApi],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

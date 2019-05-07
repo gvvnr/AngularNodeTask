@@ -1,6 +1,33 @@
 <div align="center">
   <b>Previous Orders Details</b>
 </div>
+
+<!--<div class="row">
+  <div class="col-lg-3">
+    <b>Id</b>
+  </div>
+  <div class="col-lg-3">
+    <b>PurchasedBy</b>
+  </div>
+  <div class="col-lg-3">
+    <b>PurchasedOn</b>
+  </div>
+  <div class="col-lg-3">
+    <b>Total Price</b>
+
+  </div>
+
+</div>
+<div *ngFor="let order of previousBills | paginate: {itemsPerPage: 5, currentPage: p, totalItems:total}" >
+  <div class="row">
+    <div class="col-lg-3">{{order.id}}</div>
+    <div class="col-lg-3">{{order.purchasedBy}}</div>
+    <div class="col-lg-3">{{order.purchasedOn}}</div>
+    <div class="col-lg-3">{{order.items | itemsCost}}</div>
+  </div>
+
+</div>
+<pagination-controls (pageChange)="getPage($event)"></pagination-controls>-->
 <div *ngIf="previousBills">
   <table class="table">
     <tr>
@@ -15,18 +42,11 @@
         PurchasedOn
       </th>
       <th>
-        ListOfItems
-
-      </th>
-      <th>
         Total Price
-      </th>
-      <th>
-        Quantity
       </th>
     </tr>
 
-    <tr *ngFor="let order of previousBills | paginate: {itemsPerPage: 5, currentPage: p, totalItems:total}" >
+    <tr *ngFor="let order of previousBills | paginate: {itemsPerPage: page.itemsPerPage, currentPage: p, totalItems:total}"  (click)="details(order)">
       <!--| paginate: { itemsPerPage: 5, currentPage: p }"-->
       <td>
         {{order.id}}
@@ -37,10 +57,7 @@
       <td>
         {{order.purchasedOn}}
       </td>
-      <td >
 
-        {{order.items | listOfItems}}
-      </td>
       <td>
 
 
@@ -48,9 +65,7 @@
 
 
       </td>
-      <td>
-        {{order.items | totalItems}}
-      </td>
+
 
 
       <td>
@@ -70,6 +85,15 @@
 
 </div>
 <!--
+      <td>
+        {{order.items | totalItems}}
+      </td>
+
+      <td >
+
+        {{order.items | listOfItems}}
+      </td>
+
 <div *ngIf="previousBills">
 
 </div>

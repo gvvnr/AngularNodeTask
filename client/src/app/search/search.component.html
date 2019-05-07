@@ -10,13 +10,12 @@
     <div *ngIf="ItemName">
       <form class="example-form" >
         <div class="form-group">
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="example-full-width" style="width: 70%">
             <input type="text" placeholder="Select Item"  matInput [formControl]="myControl" [matAutocomplete]="auto"
                    class="form-control "  [(ngModel)]="userFilter.Name">
 
 
             <mat-autocomplete #auto="matAutocomplete">
-<!--              <label for="autoCompleteInput"></label>-->
               <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)" id="autoCompleteInput" >
                 {{option.Name}}
               </mat-option>

@@ -8,7 +8,6 @@ export class QueryApi {
 
   doGet(url: string,  params: any) {
     url = UserEndPoint(url,params);
-    console.log('query API',url);
     return this.http.get(url, {params: params});
   }
 

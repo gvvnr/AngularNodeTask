@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router,ActivatedRoute} from "@angular/router";
 //import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgFlashMessageService } from 'ng-flash-messages';
-import {PreviousOrdersListService} from '../previous-orders/previous-orders-list.service'
-
+import {PreviousOrdersListService} from '../previous-orders/previous-orders-list.service';
+import * as _ from "lodash";
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -15,9 +15,11 @@ export class PaymentComponent implements OnInit {
   breakpoint:any;
   billData:Data;
   order:any;
+  display:boolean;
   constructor(private router: Router,private route :ActivatedRoute,private previousOrders :PreviousOrdersListService) { }
 //, private flashMessagesService: FlashMessagesService
   ngOnInit() {
+    this.display=true;
     this.route.queryParams.subscribe(params => {
       this.details = params;
       this.billData={
@@ -29,8 +31,7 @@ export class PaymentComponent implements OnInit {
         console.log(this.order)
       });
     });
-
-
+    _.delay(()=>{this.display=false;}, 1000);
 
   }
 

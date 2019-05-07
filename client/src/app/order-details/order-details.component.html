@@ -1,0 +1,104 @@
+<br>
+<br>
+<!--<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Personal data
+        </mat-panel-title>
+        <mat-panel-description>
+          Type name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </div>
+</div>-->
+
+<div *ngIf="details" >
+  <div align="center">
+
+    <mat-card height="1000"><b>{{details[0].id}}</b></mat-card>
+  </div>
+  <br>
+  <br>
+     <div class="row">
+       <div class="col-lg-3">
+         <b>PurchasedOn</b>
+       </div>
+       <div class="col-lg-3">
+         {{details[0].purchasedOn}}
+       </div>
+
+     </div>
+  <br>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <b>PurchasedBy</b>
+    </div>
+    <div class="col-lg-3">
+      {{details[0].purchasedBy}}
+    </div>
+
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-6">
+
+        <b>List Of Items</b>
+
+
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-lg-3"></div>
+   <div class="col-lg-3"><b>Product Name</b></div>
+    <div class="col-lg-3"><b>Quantity</b></div>
+    <div class="col-lg-3"><b>Total Cost</b></div>
+
+  </div>
+  <br>
+
+
+<div *ngFor="let item of details[0].items">
+  <div class="row">
+    <div class="col-lg-3"></div>
+
+<!--{{item.ProductModel.Name}}-->
+    <div class="col-lg-3">{{item.ProductModel.Name}}</div>
+    <div class="col-lg-3">{{item.quantity}}</div>
+
+    <div class="col-lg-3">{{item.totalCost}}</div>
+
+
+
+  </div>
+
+  <div>
+
+  </div>
+
+</div>
+
+
+</div>
+<!--
+<div class="col-lg-6">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Item Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="col-lg-3">Product Name</div>
+        <div class="col-lg-3">{{item.ProductModel.Name}}</div>
+      </mat-expansion-panel>
+      {{item.quantity}}
+    </div>-->

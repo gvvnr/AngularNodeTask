@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService} from '../search/search.service'
 import {PreviousOrdersListService} from './previous-orders-list.service'
+import {Router,NavigationExtras} from "@angular/router";
+//import { Data } from "../../providers/data/data";
+
 @Component({
   selector: 'app-previous-orders',
   templateUrl: './previous-orders.component.html',
@@ -9,14 +12,10 @@ import {PreviousOrdersListService} from './previous-orders-list.service'
 export class PreviousOrdersComponent implements OnInit {
   previousBills:any;
   p: number = 1;
-  pageNo: number=1;
-  //totalPages: number=10;
-  itemsPerPage: number=3;
-  displayedColumns=['id','purchasedBy','total','purchasedOn','ListOfItems'];
   page:Paginate;
   total:number;
   rows:any[];
-  constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService) { }
+  constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService,private router: Router) { }
 
   ngOnInit() {
     this.getOrderDetails();
@@ -26,7 +25,7 @@ export class PreviousOrdersComponent implements OnInit {
 
     this.page={
       pageNo:this.p,
-      itemsPerPage:5
+      itemsPerPage:4
     };
 
     this.previousOrders.getBillData(this.page).subscribe(result =>{
@@ -35,6 +34,8 @@ export class PreviousOrdersComponent implements OnInit {
       console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
       this.total=result["count"];
     });
+
+
 
     /*
     console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
@@ -63,6 +64,20 @@ export class PreviousOrdersComponent implements OnInit {
       }
     )
   }
+
+  details(data){
+
+/*
+    console.log(data["items"],'items::');
+    let navigationExtras: NavigationExtras = {
+      queryParams: data.id
+    };
+    console.log(navigationExtras);
+*/
+    this.router.navigate(['/specificOrderDetails'],{queryParams:{id:data.id}});
+
+  }
+
 
 }
 

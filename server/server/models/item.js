@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       through:'BillItems',
       foreignKey:'item_id'
     });
+    /*item.belongsTo(models.Bill,{
+        through:'BillItems',
+        foreignKey:'item_id'
+      }
+
+    );*/
 
 
   };

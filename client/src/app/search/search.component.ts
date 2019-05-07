@@ -5,7 +5,7 @@ import {SearchService} from './search.service';
 import { Router, NavigationExtras} from "@angular/router";
 import {Bill} from './bill'
 import {MatDialog} from '@angular/material';
-
+import * as _ from "lodash";
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -15,34 +15,28 @@ export class SearchComponent implements OnInit {
   myControl = new FormControl();
   count :number[]=[1,2,3,4,5];
   userFilter: any = { Name: '' };
-  rowDetails: any;
-  ItemCost: number;
   contains: any;// if item is present displays the table
   ItemName:any[] = [];
   ItemDataDetails: ItemData[]=[];
   totalBill: Bill;
-  totalItems="";
   customerName:string;
   itemsTotalCost=0;
-  //itemCount=-1;
   paymentOption=true;
   days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
 
 constructor(private searchData :SearchService,private router: Router,public dialog: MatDialog) {  }
 ngOnInit() {
   this.asign();
-
 }
 cost(product){//--------------changing cost of item based on selected option in the table-----------//
-  for(let i=0;i<this.ItemName.length;i++){
-    if(this.ItemName[i].Name==product.itemName){
+  this.ItemName.forEach( item =>{
+    if(item.Name==product.itemName){
       this.itemsTotalCost=this.itemsTotalCost-product.cost;
-      product.cost=this.ItemName[i].price*product.quantity;
+      product.cost=item.price*product.quantity;
       this.itemsTotalCost=this.itemsTotalCost+product.cost;
     }
+  });
 
-  }
 }
 
 
@@ -56,9 +50,8 @@ cost(product){//--------------changing cost of item based on selected option in 
   removeItem(itemAndDetails){// deleting particular row in item table before making payment
     for(let i=0;i<this.ItemDataDetails.length;i++){
       if(this.ItemDataDetails[i]==itemAndDetails){
-        console.log('After removing');
         this.itemsTotalCost=this.itemsTotalCost-itemAndDetails.cost;
-        console.log(this.ItemDataDetails.splice(i,1));
+        this.ItemDataDetails.splice(i,1);
       }
     }
     if(this.ItemDataDetails.length==0){
@@ -72,7 +65,11 @@ cost(product){//--------------changing cost of item based on selected option in 
   for(let i=0; i<this.ItemDataDetails.length;i++){
     if(this.ItemDataDetails[i].itemName==row.Name){
       if(this.ItemDataDetails[i].quantity<5){
-        this.ItemDataDetails[i].quantity=this.ItemDataDetails[i].quantity+1;
+        //this.itemsTotalCost=this.itemsTotalCost-this.ItemDataDetails[i].cost;
+        this.ItemDataDetails[i].quantity=Number(this.ItemDataDetails[i].quantity)+1;
+        this.itemsTotalCost=this.itemsTotalCost+row.price;
+        this.ItemDataDetails[i].cost=this.ItemDataDetails[i].quantity*row.price;
+        console.log(this.ItemDataDetails[i].quantity,'Quant ');
         this.userFilter.Name="";
         return;
       }
@@ -101,18 +98,12 @@ cost(product){//--------------changing cost of item based on selected option in 
       cost:row.price,
       itemName:row.Name
     });
-    console.log('after Item');
     console.log(this.ItemDataDetails);
     this.contains=true;
     this.itemsTotalCost=this.itemsTotalCost+row.price;
 
     this.userFilter.Name="";//--empties auto completer after every search-----
-
   }
-
-
-
-
 
 
   makePayment(){ //--------------------inserting data into bill and item tables----------------//
@@ -133,6 +124,7 @@ cost(product){//--------------changing cost of item based on selected option in 
 
 
     });
+
 
   }
 
