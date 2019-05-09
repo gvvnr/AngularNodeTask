@@ -1,7 +1,26 @@
-<div align="center">
-  <b>Previous Orders Details</b>
-</div>
+<br>
+<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-4">  <b>Previous Orders Details</b></div>
+  <div class="col-lg-5">
+    <input type="text" class="form-control" placeholder="search by Name and day" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+  </div>
 
+</div>
+<br>
+<div class="row">
+  <div class="col-lg-4">
+    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+  </div>
+  <div class="col-lg-4">
+    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+  </div>
+  <div class="col-lg-4">
+    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+  </div>
+
+</div>
+<br>
 <!--<div class="row">
   <div class="col-lg-3">
     <b>Id</b>
@@ -31,46 +50,18 @@
 <div *ngIf="previousBills">
   <table class="table">
     <tr>
-      <th>
-        Id
-      </th>
-      <th>
-        PurchasedBy
-      </th>
-
-      <th>
-        PurchasedOn
-      </th>
-      <th>
-        Total Price
-      </th>
+      <th>PurchasedBy</th>
+      <th>PurchasedOn</th>
+      <th>Total Price</th>
     </tr>
 
     <tr *ngFor="let order of previousBills | paginate: {itemsPerPage: page.itemsPerPage, currentPage: p, totalItems:total}"  (click)="details(order)">
       <!--| paginate: { itemsPerPage: 5, currentPage: p }"-->
-      <td>
-        {{order.id}}
-      </td>
-      <td>
-        {{order.purchasedBy}}
-      </td>
-      <td>
-        {{order.purchasedOn}}
-      </td>
 
-      <td>
+      <td>{{order.purchasedBy}}</td>
+      <td>{{order.purchasedOn}}</td>
+      <td>{{order.items | itemsCost}}</td>
 
-
-            {{order.items | itemsCost}}
-
-
-      </td>
-
-
-
-      <td>
-
-      </td>
 
 
 

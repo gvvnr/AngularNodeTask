@@ -1,5 +1,7 @@
 import Promise from "bluebird";
 import models from "../../../models"
+import Sequelize from "sequelize";
+const Op = Sequelize.Op
 
 export class BillDao {
 
@@ -28,18 +30,36 @@ export class BillDao {
   }
 
 
-  static findAndCountAll(pageData,limit) {
+  static findAndCountAll(pageData,limit,searchingItem) {
     return new Promise((resolve, reject) => {
       models.Bill.findAndCountAll({
 
       })
         .then( data =>{
-         console.log(data.count,'DATA COUNT');
+         console.log(data.count,'DATA COUNT',searchingItem);
           let page = pageData;      // page number
           let pages = Math.ceil(data.count / limit);
           let offset = limit * (page - 1);
 
           models.Bill.findAndCountAll({
+
+            where:{
+              [Op.or]: [
+                {
+                  purchasedBy: {
+                    [Op.like]: '%'+searchingItem+'%'
+                  }
+                },
+                {
+                  purchasedOn: {
+                    [Op.like]: '%'+searchingItem+'%'
+                  }/*,
+                  total:{
+                    [Op.like]:100
+                  }*/
+                }
+              ]
+          },
             limit: limit,
             offset: offset,
             order: [
@@ -54,9 +74,11 @@ export class BillDao {
               ]
           })
             .then(result =>{
+              console.log(result);
               resolve(result);
             })
             .catch(err =>{
+              console.log(err);
               reject(err);
             });
         })

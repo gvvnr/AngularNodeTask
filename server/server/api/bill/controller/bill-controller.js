@@ -4,11 +4,8 @@ import {ProductDao} from "../../Product/dao/product-dao";
 export default class BillController {
 
   static getAll(req, res) {
-    console.log('SSSSSSSSSSSSSSS');
-    BillDao.findAndCountAll(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage))
+    BillDao.findAndCountAll(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage),req.query.search)
       .then(products => {
-        console.log('In controller');
-        console.log(JSON.stringify(products));
         res.status(201).json(products);
       })
       .catch(error => {
@@ -18,7 +15,6 @@ export default class BillController {
   }
 //getById
   static getById(req, res) {
-    console.log(req.query.id,'aaaaa');
     BillDao.getById(req.query.id)
       .then(products => {
         res.status(201).json(products);
@@ -45,7 +41,6 @@ export default class BillController {
   static createNewImage(req, res) {
     const _reqBody = req.body;
     console.log('req body');
-   // console.log(req.body);
     BillDao.createNewImage(_reqBody)
       .then(BillDao => {
         res.status(201).json(BillDao);

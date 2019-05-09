@@ -15,6 +15,7 @@ export class PreviousOrdersComponent implements OnInit {
   page:Paginate;
   total:number;
   rows:any[];
+  searchingItem:any
   constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService,private router: Router) { }
 
   ngOnInit() {
@@ -25,7 +26,8 @@ export class PreviousOrdersComponent implements OnInit {
 
     this.page={
       pageNo:this.p,
-      itemsPerPage:4
+      itemsPerPage:4,
+      search:'',
     };
 
     this.previousOrders.getBillData(this.page).subscribe(result =>{
@@ -57,12 +59,25 @@ export class PreviousOrdersComponent implements OnInit {
     console.log(this.p);
     this.page={
       pageNo:this.p,
-      itemsPerPage:5
+      itemsPerPage:5,
+      search:''
     };
     this.previousOrders.getBillData(this.page).subscribe(result =>{
         this.previousBills=result["rows"];
       }
     )
+  }
+  ResultDataAfterSearch(){
+    this.page={
+      pageNo:this.p,
+      itemsPerPage:5,
+      search:this.searchingItem
+    };
+    this.previousOrders.getBillData(this.page).subscribe(result =>{
+        this.previousBills=result["rows"];
+      }
+    )
+    console.log(this.searchingItem);
   }
 
   details(data){
@@ -85,4 +100,5 @@ export class PreviousOrdersComponent implements OnInit {
 export class Paginate {
   pageNo: number=1;
   itemsPerPage:number;
+  search:string;
 }
