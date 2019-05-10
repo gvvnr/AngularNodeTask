@@ -10,13 +10,13 @@
 <br>
 <div class="row">
   <div class="col-lg-4">
-    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingbyName" (input)="ResultDataAfterSearchByName()">
   </div>
   <div class="col-lg-4">
-    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+    <input type="text" class="form-control" placeholder="search by Day" [(ngModel)]="searchingbyDay" (input)="ResultDataAfterSearchbyDay()">
   </div>
   <div class="col-lg-4">
-    <input type="text" class="form-control" placeholder="search by Name" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+    <input type="text" class="form-control" placeholder="pending search by min and max price" [(ngModel)]="searchingbyPrice" (input)="ResultDataAfterSearch()">
   </div>
 
 </div>
@@ -60,7 +60,8 @@
 
       <td>{{order.purchasedBy}}</td>
       <td>{{order.purchasedOn}}</td>
-      <td>{{order.items | itemsCost}}</td>
+      <td>{{order.total}}</td>
+<!--      <td>{{order.items | itemsCost}}</td>-->
 
 
 

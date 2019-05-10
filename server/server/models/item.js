@@ -16,16 +16,16 @@ module.exports = (sequelize, DataTypes) => {
     });
 
 
-    item.belongsToMany(models.Bill,{
+    /*item.belongsTo(models.Bill,{
       through:'BillItems',
       foreignKey:'item_id'
-    });
-    /*item.belongsTo(models.Bill,{
-        through:'BillItems',
-        foreignKey:'item_id'
+    });*/
+    item.belongsTo(models.Bill,{
+        foreignKey:'bill_id',
+        sourceKey:'id'
       }
 
-    );*/
+    );
 
 
   };

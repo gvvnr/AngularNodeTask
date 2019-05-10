@@ -13,7 +13,19 @@ export default class BillController {
       })
 
   }
-//getById
+//searchAndGetByCoulmnName
+  static searchAndGetByCoulmnName(req, res) { ///--search by specific coulmn name-----------------//
+
+    BillDao.searchAndGetByCoulmnName(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage),req.query.searchCoulmnName,req.query.search)
+      .then(products => {
+        res.status(201).json(products);
+      })
+      .catch(error => {
+        res(error).json(error);
+      })
+
+  }
+
   static getById(req, res) {
     BillDao.getById(req.query.id)
       .then(products => {

@@ -6,6 +6,7 @@ export const BULKINSERT='BULK_INSERT_ITEM_DATA';
 export const BILLGETDATA='BILLDATA';
 export const BILLITEMDATA='BILLITEMDATA';//BILLDATA
 export const BILLDATABYID='BILLDATABYID';
+export const SEARCHBYCOULMN='SEARCHBYCOULMNBILLDATA';
 export const UserEndPoint = (type: string, params:any) => {
   const endpoints = {
     [BILLGETDATA]:'/bill',
@@ -15,7 +16,8 @@ export const UserEndPoint = (type: string, params:any) => {
     [BULKINSERT]:'/bulkInsert',///BILLDATA
     //[BILLGETDATA]:'/bill'
     [BILLITEMDATA]:'/billItems',
-    [BILLDATABYID]:'/bill/id'
+    [BILLDATABYID]:'/bill/id',
+    [SEARCHBYCOULMN]:'/bill/search/coulmn'//-------------------------search by specific coulmn----------------//
   };
   console.log("----> user endpoint");
   console.log(environment.API_ROOT + endpoints[type]);

@@ -2,11 +2,9 @@ import Promise from "bluebird";
 import models from "../../../models"
 import Sequelize from "sequelize";
 const Op = Sequelize.Op
-
 export class BillDao {
 
-
-  static getById(_paramet) {
+ static getById(_paramet) {
     return new Promise((resolve, reject) => {
       models.Bill.findAll({where : { id: _paramet},
           include:[
@@ -28,19 +26,73 @@ export class BillDao {
         });
     });
   }
-
-
-  static findAndCountAll(pageData,limit,searchingItem) {
+  static searchAndGetByCoulmnName(pageData,limit,searchCoulmnName,searchingItem) {
     return new Promise((resolve, reject) => {
       models.Bill.findAndCountAll({
 
       })
         .then( data =>{
-         console.log(data.count,'DATA COUNT',searchingItem);
+          let item=0;
+            item=Number(searchingItem);
+          console.log(data.count,'DATA COUNT',item);
           let page = pageData;      // page number
-          let pages = Math.ceil(data.count / limit);
+        //  let pages = Math.ceil(data.count / limit);
           let offset = limit * (page - 1);
 
+          models.Bill.findAndCountAll({
+
+            where:{
+              [Op.or]: [
+                {
+                  [searchCoulmnName]: {
+                    [Op.like]: '%'+searchingItem+'%'
+                  }
+                },
+
+              ]
+            },
+            limit: limit,
+            offset: offset,
+            order: [
+              ['createdAt', 'DESC']
+            ],
+            include:[
+
+              {
+                model:models.item,
+                include:[{model:models.ProductModel}]
+              }
+            ]
+          })
+            .then(result =>{
+              console.log(result);
+              resolve(result);
+            })
+            .catch(err =>{
+              console.log(err);
+              reject(err);
+            });
+        })
+
+    })
+  }
+
+
+
+
+  static findAndCountAll(pageData,limit,searchingItem) {//----search by purchasedon and purchasedby----
+    return new Promise((resolve, reject) => {
+      models.Bill.findAndCountAll({
+
+      })
+        .then( data =>{
+          console.log(searchingItem);
+          let data1=0;
+         console.log(data.count,'DATA COUNT11',Number(searchingItem));
+         data1= Number(searchingItem);
+         let page = pageData;      // page number
+          let pages = Math.ceil(data.count / limit);
+          let offset = limit * (page - 1);
           models.Bill.findAndCountAll({
 
             where:{
@@ -53,10 +105,14 @@ export class BillDao {
                 {
                   purchasedOn: {
                     [Op.like]: '%'+searchingItem+'%'
-                  }/*,
+                  },
+
+                },
+                {
+
                   total:{
-                    [Op.like]:100
-                  }*/
+                    [Op.eq]:Number(searchingItem)
+                  },
                 }
               ]
           },
@@ -74,12 +130,12 @@ export class BillDao {
               ]
           })
             .then(result =>{
-              console.log(result);
+              console.log(JSON.stringify(result));
               resolve(result);
             })
             .catch(err =>{
               console.log(err);
-              reject(err);
+             // reject(err);
             });
         })
 

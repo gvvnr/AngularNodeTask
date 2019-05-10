@@ -20,14 +20,17 @@ module.exports = {
       },
       totalCost: {
         type: Sequelize.INTEGER
-      }/*,
+      },
       bill_id:{
         type: Sequelize.INTEGER,
         references:{
           model:'Bills',
           key:'id'
-        }
-      }*/,
+        },
+        onDelete: 'CASCADE',
+        onUpdate:'CASCADE'
+
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

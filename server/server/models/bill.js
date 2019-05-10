@@ -8,14 +8,15 @@ module.exports = (sequelize, DataTypes) => {
   Bill.associate = function(models) {
     // associations can be defined here
 
-    /*Bill.hasMany(models.item,{
-      through:BillItems,
+    Bill.hasMany(models.item,{
+      //through:BillItems,
+      foreignKey:'bill_id',
+      sourceKey:'id'
+    })
+/*    Bill.belongsToMany(models.item,{
+     through:'BillItems',
       foreignKey:'bill_id'
-    })*/
-    Bill.belongsToMany(models.item,{
-      through:'BillItems',
-      foreignKey:'bill_id'
-    });
+    });*/
     /*Bill.hasMany(models.BillItems,{
       foreignKey:'bill_id',
       sourceKey:'id'

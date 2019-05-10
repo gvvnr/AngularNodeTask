@@ -49,10 +49,6 @@ export class ItemDao {
     })
   }
 
-
-
-
-
   static BulkcreateNew(request,billId) {
 
     return new Promise((resolve, reject) => {
@@ -62,23 +58,13 @@ export class ItemDao {
         productList.push({
           product_id:request.itemValues[i].product_id,
           quantity: request.itemValues[i].quantity,
-          totalCost:request.itemValues[i].cost
+          totalCost:request.itemValues[i].cost,
+          bill_id:billId
 
         })
       }
       models.item.bulkCreate(productList,{returning: true})
-        .then(resp =>{
-          var billList=[];
-          for(let i=0;i<resp.length;i++){
-            billList.push({
-              bill_id:billId,
-              item_id:resp[i].id
-            })
-          }
-          models.BillItems.bulkCreate(billList, {returning:true})
-        })
         .then((list)=>{
-          console.log('DAO',list);
           resolve(list);
         })
         .catch(error => {

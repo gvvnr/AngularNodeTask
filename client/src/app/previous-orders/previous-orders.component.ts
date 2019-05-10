@@ -16,10 +16,40 @@ export class PreviousOrdersComponent implements OnInit {
   total:number;
   rows:any[];
   searchingItem:any
+  searchingbyName:any;
+  searchingbyDay:any;
+  searchingbyPrice:any;
+  searchSpecific:SearchBySpecificValue;
   constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService,private router: Router) { }
 
   ngOnInit() {
     this.getOrderDetails();
+  }
+
+  ResultDataAfterSearchByName(){      //----------searching and paginating by name----------------------//
+      this.searchSpecific={
+        pageNo:this.p,
+        itemsPerPage:4,
+        searchCoulmnName:'purchasedBy',
+        search:this.searchingbyName
+      }
+      this.previousOrders.getBillDataBySpecificCoulmn(this.searchSpecific).subscribe( result =>{
+        this.previousBills=result["rows"];
+        this.total=result["count"];
+      })
+  }
+  ResultDataAfterSearchbyDay(){
+    this.searchSpecific={
+      pageNo:this.p,
+      itemsPerPage:4,
+      searchCoulmnName:'purchasedOn',
+      search:this.searchingbyDay
+    }
+    this.previousOrders.getBillDataBySpecificCoulmn(this.searchSpecific).subscribe( result =>{
+      this.previousBills=result["rows"];
+      this.total=result["count"];
+    })
+
   }
 
   getOrderDetails(){
@@ -54,7 +84,7 @@ export class PreviousOrdersComponent implements OnInit {
 
   }
 
-  getPage(data){
+  getPage(data){//----getting next page in pagination------------------------//
     this.p=data;
     console.log(this.p);
     this.page={
@@ -67,7 +97,7 @@ export class PreviousOrdersComponent implements OnInit {
       }
     )
   }
-  ResultDataAfterSearch(){
+  ResultDataAfterSearch(){//
     this.page={
       pageNo:this.p,
       itemsPerPage:5,
@@ -100,5 +130,11 @@ export class PreviousOrdersComponent implements OnInit {
 export class Paginate {
   pageNo: number=1;
   itemsPerPage:number;
+  search:string;
+}
+export class SearchBySpecificValue{
+  pageNo:number;
+  itemsPerPage:number;
+  searchCoulmnName:string;
   search:string;
 }

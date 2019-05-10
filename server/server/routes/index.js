@@ -8,7 +8,7 @@ export default class Routes {
      ProductRoutes.init(router);
      ItemRoutes.init(router);
      BillRoutes.init(router);
-     BillItemsRoutes.init(router);
+     //BillItemsRoutes.init(router);
 
      app.use("/", router);
    }

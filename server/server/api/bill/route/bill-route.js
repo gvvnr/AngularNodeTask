@@ -2,7 +2,7 @@ import BillController from "../controller/bill-controller"
 
 export default class BillRoutes {
   static init(router) {
-    console.log('getting into Item routes');
+
     router
       .route('/bill')
       .get(BillController.getAll)
@@ -11,6 +11,10 @@ export default class BillRoutes {
     router
       .route('/bill/id')
       .get(BillController.getById);
+    //'/bill/search/coulmn'
+    router
+      .route('/bill/search/coulmn')
+      .get(BillController.searchAndGetByCoulmnName);
 
   }
 

@@ -19,7 +19,15 @@ export class PreviousOrdersListService {
       );
   }
 
-  //getBillDataById
+  //getBillDataBySpecificCoulmn
+
+  getBillDataBySpecificCoulmn(pageData): Observable <any> {
+    let req;
+    return this.queryApi.doGet('SEARCHBYCOULMNBILLDATA', pageData)
+      .pipe(
+        catchError(err => of([err]))
+      );
+  }
 
   getBillDataById(pageData): Observable <any> {
     let req;
