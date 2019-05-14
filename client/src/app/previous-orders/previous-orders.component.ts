@@ -9,21 +9,40 @@ import {Router,NavigationExtras} from "@angular/router";
   templateUrl: './previous-orders.component.html',
   styleUrls: ['./previous-orders.component.sass']
 })
+
+
+
 export class PreviousOrdersComponent implements OnInit {
   previousBills:any;
   p: number = 1;
   page:Paginate;
   total:number;
   rows:any[];
-  searchingItem:any
+  searchingItem:any;
   searchingbyName:any;
   searchingbyDay:any;
-  searchingbyPrice:any;
+  searchingbyMinPrice:any;
+  searchingbyMaxPrice:any;
   searchSpecific:SearchBySpecificValue;
+  itemsPerPage=4;
+  searchingbyDate:any;//new Date();
+  myFilter:any;
   constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService,private router: Router) { }
 
   ngOnInit() {
     this.getOrderDetails();
+  }
+
+  ResultDataAfterSearchbyDate(){
+    console.log('searching by date........');
+    console.log(this.searchingbyDate);
+    this.previousOrders.searchByDate(this.p,this.itemsPerPage,this.searchingbyDate).subscribe( result=>{
+
+     this.previousBills=result["rows"];
+      this.total=result["count"];
+
+    });
+
   }
 
   ResultDataAfterSearchByName(){      //----------searching and paginating by name----------------------//
@@ -32,11 +51,12 @@ export class PreviousOrdersComponent implements OnInit {
         itemsPerPage:4,
         searchCoulmnName:'purchasedBy',
         search:this.searchingbyName
-      }
+      };
       this.previousOrders.getBillDataBySpecificCoulmn(this.searchSpecific).subscribe( result =>{
         this.previousBills=result["rows"];
         this.total=result["count"];
-      })
+      });
+
   }
   ResultDataAfterSearchbyDay(){
     this.searchSpecific={
@@ -48,12 +68,28 @@ export class PreviousOrdersComponent implements OnInit {
     this.previousOrders.getBillDataBySpecificCoulmn(this.searchSpecific).subscribe( result =>{
       this.previousBills=result["rows"];
       this.total=result["count"];
+
     })
 
   }
+  SearchByMax(){//--------getting rows for upto specified price
+    this.previousOrders.searchByMaxOfPrice(this.p,this.itemsPerPage,this.searchingbyMaxPrice,'Max')
+      .subscribe( result=>{
+        this.previousBills=result["rows"];
+        this.total=result["count"];
+      });
+
+  }
+  SearchByMin(){
+//searchingbyMinPrice
+    this.previousOrders.searchByMaxOfPrice(this.p,this.itemsPerPage,this.searchingbyMinPrice,'Min')
+      .subscribe( result=>{
+        this.previousBills=result["rows"];
+        this.total=result["count"];
+      });
+  }
 
   getOrderDetails(){
-
     this.page={
       pageNo:this.p,
       itemsPerPage:4,
@@ -65,46 +101,61 @@ export class PreviousOrdersComponent implements OnInit {
       this.previousBills=result["rows"];
       console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
       this.total=result["count"];
+        this.myFilter = (d: Date): boolean => {///////gets date and verifies the condition in return statement and displays date based on given condition in the return statement
+          return d<=(new Date());
+
+        }
+
     });
 
-
-
-    /*
-    console.log('total',result["rows"][0]["items"][0]["ProductModel"].Name);
-
-          console.log('total',result["rows"][0]["items"][0]["ProductModel"].length());
-    console.log(this.page);
-    this.previousOrders.getBillItemData(this.page).subscribe(result =>{
-      console.log('finally::')
-
-       this.previousBills=result;
-      console.log(this.previousBills);
-      }
-    )*/
 
   }
 
   getPage(data){//----getting next page in pagination------------------------//
+
     this.p=data;
-    console.log(this.p);
-    this.page={
-      pageNo:this.p,
-      itemsPerPage:5,
-      search:''
-    };
-    this.previousOrders.getBillData(this.page).subscribe(result =>{
-        this.previousBills=result["rows"];
-      }
-    )
+    if(this.searchingItem){//getting to next page based on text entered in search box during pagination
+      this.ResultDataAfterSearch();
+      return;
+    }
+    else if(this.searchingbyDate){
+      this.ResultDataAfterSearchbyDate();
+      return;
+    }
+    else if(this.searchingbyName){
+      this.ResultDataAfterSearchByName();
+      return;
+    }
+    else if(this.searchingbyDay){
+      this.ResultDataAfterSearchbyDay();
+      return;
+    }
+    else if(this.searchingbyMaxPrice){
+      this.SearchByMax();
+      return;
+    }
+    else{// If no text is entered in any of the text fields to filter for pagination then by default  else will be called
+      this.page={
+        pageNo:this.p,
+        itemsPerPage:4,
+        search:''
+      };
+      this.previousOrders.getBillData(this.page).subscribe(result =>{
+          this.previousBills=result["rows"];
+        }
+      )
+
+    }
   }
-  ResultDataAfterSearch(){//
+  ResultDataAfterSearch(){
     this.page={
       pageNo:this.p,
-      itemsPerPage:5,
+      itemsPerPage:4,
       search:this.searchingItem
     };
     this.previousOrders.getBillData(this.page).subscribe(result =>{
         this.previousBills=result["rows"];
+      this.total=result["count"];
       }
     )
     console.log(this.searchingItem);
@@ -112,13 +163,6 @@ export class PreviousOrdersComponent implements OnInit {
 
   details(data){
 
-/*
-    console.log(data["items"],'items::');
-    let navigationExtras: NavigationExtras = {
-      queryParams: data.id
-    };
-    console.log(navigationExtras);
-*/
     this.router.navigate(['/specificOrderDetails'],{queryParams:{id:data.id}});
 
   }

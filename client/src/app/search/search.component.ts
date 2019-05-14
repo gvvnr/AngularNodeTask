@@ -127,13 +127,14 @@ cost(product){//--------------changing cost of item based on selected option in 
 
 
   }
-
   navigate(data) {//---------navigating to payment page by taking some required data----------------------
-    let navigationExtras: NavigationExtras = {
+    /*let navigationExtras: NavigationExtras = {
       queryParams: data
     };
     console.log(navigationExtras);
-    this.router.navigate(['/payment'], navigationExtras);
+    this.router.navigate(['/payment'], navigationExtras);*/
+        this.router.navigate(['/specificOrderDetails'],{queryParams:{id:data.id}});
+
   }
   /*this.searchData.createItemData(this.ItemDataDetails,resp).subscribe(response => {
     console.log('create item response');

@@ -2,12 +2,6 @@
 <br>
 <br>
 
-
-<div class="table" >
-
-
-</div>
-
 <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="display">
   Payment successfull
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,64 +11,15 @@
 <div *ngIf="order">
   <table class="table">
     <tr>
-      <th>Id</th>
-      <th>
-        PurchasedBy
-      </th>
-
-      <th>
-        PurchasedOn
-      </th>
-      <th>
-        ListOfItems
-
-      </th>
-      <th>
-        Total Price
-      </th>
-      <th>
-        Quantity
-      </th>
+      <th>PurchasedBy</th>
+      <th>PurchasedOn</th>
+      <th>Total Price</th>
     </tr>
-
-    <tr>
-
-
-      <td>
-        {{order[0].id}}
-      </td>
-      <td>
-        {{order[0].purchasedBy}}
-      </td>
-      <td>
-        {{order[0].purchasedOn}}
-      </td>
-      <td >
-
-        <!--        <div *ngFor="let item of order.items">
-                  {{item.ProductModel.Name}}
-                </div>-->
-        {{order[0].items | listOfItems}}
-      </td>
-      <td>
-
-
-        {{order[0].items | itemsCost}}
-
-
-      </td>
-      <td>
-        {{order[0].items | totalItems}}
-      </td>
-
-
-      <td>
-
-      </td>
-
-
-
-    </tr>
+    <tr (click)="specificDetails()">
+      <td>{{order.purchasedBy}}</td>
+      <td>{{order.purchasedOn}}</td>
+      <td>{{order.items | itemsCost}}</td>
+      </tr>
 
   </table>
 

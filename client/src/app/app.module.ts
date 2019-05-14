@@ -24,8 +24,17 @@ import {
   MatDialogModule,
   MatDividerModule,
   MatListModule,
-  MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
-  MatSortModule, MatTableModule, MatNativeDateModule, MatIconModule, MatSelectModule, MatOptionModule
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MatNativeDateModule,
+  MatIconModule,
+  MatSelectModule,
+  MatOptionModule,
+  MatDatepickerModule,
+
 } from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //import {MdDialogModule} from '@angular/material';
@@ -67,7 +76,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatAutocompleteModule,
     HttpClientModule,
-    //MatDialog
+    //MaterialModule,            // <----- this module will be deprecated in the future version.
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,        // <----- import for date formating(optional)
+    //MatMomentDateModule,         // <----- import for date formating adapted to more locales(optional)
+
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
@@ -83,7 +96,6 @@ const routes: Routes = [
     MatSortModule,
     MatTableModule,
     NgFlashMessagesModule,
-    MatNativeDateModule,
     MatIconModule,
     MatSelectModule,
     MatOptionModule,

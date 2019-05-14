@@ -15,6 +15,12 @@ export default class BillRoutes {
     router
       .route('/bill/search/coulmn')
       .get(BillController.searchAndGetByCoulmnName);
+    router
+      .route('/bill/search/price')
+      .get(BillController.searchByMinAndMaxPrice);
+    router
+      .route('/bill/search/date')
+      .get(BillController.searchByDate);
 
   }
 

@@ -1,5 +1,4 @@
 import {BillDao} from "../dao/bill-dao";
-import {ProductDao} from "../../Product/dao/product-dao";
 
 export default class BillController {
 
@@ -13,7 +12,6 @@ export default class BillController {
       })
 
   }
-//searchAndGetByCoulmnName
   static searchAndGetByCoulmnName(req, res) { ///--search by specific coulmn name-----------------//
 
     BillDao.searchAndGetByCoulmnName(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage),req.query.searchCoulmnName,req.query.search)
@@ -23,6 +21,29 @@ export default class BillController {
       .catch(error => {
         res(error).json(error);
       })
+
+  }
+
+  static searchByMinAndMaxPrice(req, res) { ///--search by difference in price cou,mn of pagination-----------------//
+
+    BillDao.searchByPrice(parseInt(req.query.pageNo),parseInt(req.query.itemsPerPage),parseInt(req.query.max),req.query.priceType)
+      .then(products => {
+        res.status(201).json(products);
+      })
+      .catch(error => {
+        res(error).json(error);
+      })
+
+  }
+  static searchByDate(req, res) {
+    BillDao.SearchByDate(parseInt(req.query.page),parseInt(req.query.itemsPerPage),req.query.date)
+      .then(BillDao => {
+        res.status(201).json(BillDao);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
 
   }
 
@@ -52,7 +73,6 @@ export default class BillController {
 
   static createNewImage(req, res) {
     const _reqBody = req.body;
-    console.log('req body');
     BillDao.createNewImage(_reqBody)
       .then(BillDao => {
         res.status(201).json(BillDao);

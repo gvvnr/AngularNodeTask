@@ -1,27 +1,16 @@
 <br>
 <br>
-<!--<div class="row">
-  <div class="col-lg-3"></div>
-  <div class="col-lg-3"></div>
-  <div class="col-lg-6">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Personal data
-        </mat-panel-title>
-        <mat-panel-description>
-          Type name and age
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-    </mat-expansion-panel>
-  </div>
-</div>-->
+
 
 <div *ngIf="details" >
-  <div align="center">
-
-    <mat-card height="1000"><b>{{details[0].id}}</b></mat-card>
+  <mat-card>
+  <div class="row">
+    <div class="col-lg-2"><b>Purchase Id</b></div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-6">{{details[0].id}}</div>
   </div>
+</mat-card>
+
   <br>
   <br>
      <div class="row">
@@ -89,16 +78,5 @@
 
 
 </div>
-<!--
-<div class="col-lg-6">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Item Details
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="col-lg-3">Product Name</div>
-        <div class="col-lg-3">{{item.ProductModel.Name}}</div>
-      </mat-expansion-panel>
-      {{item.quantity}}
-    </div>-->
+
+

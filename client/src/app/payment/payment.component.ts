@@ -17,7 +17,6 @@ export class PaymentComponent implements OnInit {
   order:any;
   display:boolean;
   constructor(private router: Router,private route :ActivatedRoute,private previousOrders :PreviousOrdersListService) { }
-//, private flashMessagesService: FlashMessagesService
   ngOnInit() {
     this.display=true;
     this.route.queryParams.subscribe(params => {
@@ -26,13 +25,14 @@ export class PaymentComponent implements OnInit {
         id:params.id
       };
       this.previousOrders.getBillDataById(this.billData).subscribe(result =>{
-
-        this.order=result;
-        console.log(this.order)
+        this.order=result[0];
       });
     });
     _.delay(()=>{this.display=false;}, 1000);
 
+  }
+  specificDetails(){
+    this.router.navigate(['/specificOrderDetails'],{queryParams:{id:this.order.id}});
   }
 
 

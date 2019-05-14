@@ -26,28 +26,97 @@ export class BillDao {
         });
     });
   }
+  static SearchByDate(pageData,limit,date) {
+    return new Promise((resolve, reject) => {
+      let offset = limit * (pageData - 1);
+          models.Bill.findAndCountAll({
+
+            where:{
+              'createdAt': {
+                [Op.gte]:new Date(date),
+                [Op.lte]:new Date(new Date(date).setUTCHours(23,59,59,9999))//.setHours(23)
+              }
+            },
+            limit: limit,
+            offset: offset,
+            order: [
+              ['createdAt', 'DESC']
+            ],
+            include:[
+
+              {
+                model:models.item,
+                include:[{model:models.ProductModel}]
+              }
+            ]
+          })
+            .then(result =>{
+              resolve(result);
+            })
+            .catch(err =>{
+              reject(err);
+            });
+        })
+
+  }
+
+
+  static searchByPrice(pageData,limit,max,priceType) {
+    return new Promise((resolve, reject) => {
+      let priceDifference;
+      if(priceType=='Max')
+       priceDifference=Op.lte;
+      else if(priceType=='Min')
+        priceDifference=Op.gte;
+
+          let offset = limit * (pageData - 1);
+
+          models.Bill.findAndCountAll({
+
+            where:{
+                  'total': {
+                    [priceDifference]:max
+                  }
+            }
+            ,
+            limit: limit,
+            offset: offset,
+            order: [
+              ['createdAt', 'DESC']
+            ],
+            include:[
+
+              {
+                model:models.item,
+                include:[{model:models.ProductModel}]
+              }
+            ]
+          })
+            .then(result =>{
+              //console.log(result);
+              resolve(result);
+            })
+            .catch(err =>{
+            //  console.log(err);
+             reject(err);
+            });
+        })
+
+
+  }
   static searchAndGetByCoulmnName(pageData,limit,searchCoulmnName,searchingItem) {
     return new Promise((resolve, reject) => {
-      models.Bill.findAndCountAll({
-
-      })
-        .then( data =>{
-          let item=0;
-            item=Number(searchingItem);
-          console.log(data.count,'DATA COUNT',item);
-          let page = pageData;      // page number
-        //  let pages = Math.ceil(data.count / limit);
-          let offset = limit * (page - 1);
-
+      let page = pageData;
+      let offset = limit * (pageData - 1);
           models.Bill.findAndCountAll({
 
             where:{
               [Op.or]: [
                 {
                   [searchCoulmnName]: {
-                    [Op.like]: '%'+searchingItem+'%'
+                    [Op.iLike]: '%'+searchingItem+'%'
                   }
-                },
+                }
 
               ]
             },
@@ -65,16 +134,14 @@ export class BillDao {
             ]
           })
             .then(result =>{
-              console.log(result);
               resolve(result);
             })
             .catch(err =>{
-              console.log(err);
               reject(err);
             });
         })
 
-    })
+
   }
 
 
@@ -88,10 +155,12 @@ export class BillDao {
         .then( data =>{
           console.log(searchingItem);
           let data1=0;
-         console.log(data.count,'DATA COUNT11',Number(searchingItem));
-         data1= Number(searchingItem);
+         console.log(data.count,'DATA COUNT11',limit);
+         if(Number(searchingItem))
+             data1= Number(searchingItem);
+         else
+           data1=0;
          let page = pageData;      // page number
-          let pages = Math.ceil(data.count / limit);
           let offset = limit * (page - 1);
           models.Bill.findAndCountAll({
 
@@ -99,19 +168,19 @@ export class BillDao {
               [Op.or]: [
                 {
                   purchasedBy: {
-                    [Op.like]: '%'+searchingItem+'%'
+                    [Op.iLike]: '%'+searchingItem+'%'
                   }
                 },
                 {
                   purchasedOn: {
-                    [Op.like]: '%'+searchingItem+'%'
+                    [Op.iLike]: '%'+searchingItem+'%'
                   },
 
                 },
                 {
 
                   total:{
-                    [Op.eq]:Number(searchingItem)
+                    [Op.eq]:data1
                   },
                 }
               ]

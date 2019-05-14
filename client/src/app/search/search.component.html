@@ -6,8 +6,8 @@
 
   </div>
 
-  <div class="col-lg-9" >
-    <div *ngIf="ItemName">
+  <div class="col-lg-9" *ngIf="ItemName">
+    <!--<div >-->
       <form class="example-form" >
         <div class="form-group">
           <mat-form-field class="example-full-width" style="width: 70%">
@@ -24,7 +24,7 @@
         </div>
       </form>
 
-    </div>
+<!--    </div>-->
 
 
     <div *ngIf="contains">
@@ -98,6 +98,7 @@
 
 </div>
   <div class="col-lg-2">
+    <br>
     <button (click)="previousBills()" class="btn btn-info" >Previous Bills</button>
 
   </div>
