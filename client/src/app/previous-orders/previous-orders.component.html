@@ -3,38 +3,42 @@
   <div class="col-lg-3"></div>
   <div class="col-lg-4">  <b>Previous Orders Details</b></div>
   <div class="col-lg-5">
-    <input type="text" class="form-control" placeholder="search" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchingItem" (input)="ResultDataAfterSearch()">
   </div>
 
 </div>
-<br>
 <div class="row">
   <div class="col-lg-2">
-    <input type="text" class="form-control" placeholder="search By Name" [(ngModel)]="searchingbyName" (input)="ResultDataAfterSearchByName()">
+    <br>
+    <input type="text" class="form-control" placeholder="Search By Name" [(ngModel)]="searchingbyName" (input)="ResultDataAfterSearchByName()">
   </div>
-  <div class="col-lg-3">
+  <div class="col-lg-2" id="DatePadding">
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="searchingbyDate"
-      (dateInput)="ResultDataAfterSearchbyDate()" [matDatepickerFilter]="myFilter" >
+      <input matInput [matDatepicker]="picker" placeholder="Choose A date" [(ngModel)]="searchingbyDate"
+             (dateInput)="ResultDataAfterSearchbyDate()" [matDatepickerFilter]="myFilter" >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="year"></mat-datepicker>
     </mat-form-field>
 
   </div>
   <div class="col-lg-2">
+    <br>
     <input type="text" class="form-control" placeholder="Search By Day" [(ngModel)]="searchingbyDay" (input)="ResultDataAfterSearchbyDay()">
 
   </div>
   <div class="col-lg-2">
-    <input type="text" class="form-control" placeholder="Min Price not yet done" [(ngModel)]="searchingbyMinPrice" (input)="SearchByMin()">
+    <br>
+    <input type="text" class="form-control" placeholder="Min Price Not Yet done" [(ngModel)]="searchingbyMinPrice" (input)="SearchByMin()">
 
   </div>
+
   <div class="col-lg-2">
+    <br>
     <input type="text" class="form-control" placeholder="Enter Max Price" [(ngModel)]="searchingbyMaxPrice" (input)="SearchByMax()">
   </div>
 </div>
 <br>
-<div *ngIf="previousBills">
+<div class="container" *ngIf="previousBills">
   <table class="table table-hover">
     <thead>
     <tr>
@@ -46,24 +50,24 @@
     </thead>
 
 
-    <tr *ngFor="let order of previousBills | paginate: {itemsPerPage: page.itemsPerPage, currentPage: p, totalItems:total}"  (click)="details(order)"
-   >
+    <tr id="cursor" *ngFor="let order of previousBills | paginate: {itemsPerPage: page.itemsPerPage, currentPage: p, totalItems:total}"  (click)="details(order)"
+    >
       <!--| paginate: { itemsPerPage: 5, currentPage: p }"-->
 
       <td>{{order.purchasedBy}}</td>
       <td>{{order.createdAt}}</td>
       <td>{{order.purchasedOn}}</td>
       <td>{{order.total}}</td>
-<!--      <td>{{order.items | itemsCost}}</td>-->
+      <!--      <td>{{order.items | itemsCost}}</td>-->
 
 
 
 
     </tr>
-<!--    <div (show)="total>itemsPerPage">-->
+    <!--    <div (show)="total>itemsPerPage">-->
 
 
-   <!-- </div>-->
+    <!-- </div>-->
     <div *ngIf="total>itemsPerPage">
       {{total}}
       {{itemsPerPage}}

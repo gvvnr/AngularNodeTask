@@ -9,6 +9,8 @@ module.exports = {
        Name: prodDetails[i].Name,
        category:prodDetails[i].category,
        price: prodDetails[i].price,
+         color:prodDetails[i].color,
+       weight:prodDetails[i].weight,
        createdAt:new Date(),
        updatedAt: new Date()
      })

@@ -1,7 +1,7 @@
 import Promise from "bluebird";
 import models from "../../../models"
 import Sequelize from "sequelize";
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 export class BillDao {
 
  static getById(_paramet) {
@@ -21,7 +21,6 @@ export class BillDao {
           resolve(post);
         })
         .catch(error => {
-          console.log(error);
           reject(error);
         });
     });
@@ -153,7 +152,6 @@ export class BillDao {
 
       })
         .then( data =>{
-          console.log(searchingItem);
           let data1=0;
          console.log(data.count,'DATA COUNT11',limit);
          if(Number(searchingItem))
@@ -199,7 +197,6 @@ export class BillDao {
               ]
           })
             .then(result =>{
-              console.log(JSON.stringify(result));
               resolve(result);
             })
             .catch(err =>{
@@ -210,18 +207,7 @@ export class BillDao {
 
     })
   }
-  static findAndCountAllImage(pageData,limit) {
-    return new Promise((resolve, reject) => {
-      models.ExamplePhoto.findAndCountAll({
 
-      }).then(result =>{
-        resolve(result);
-      })
-        .catch(err =>{
-          reject(err);
-        });
-    })
-  }
 
 
 

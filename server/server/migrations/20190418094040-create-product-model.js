@@ -17,6 +17,13 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
+      color:{
+        type: Sequelize.STRING
+      },
+      weight:{
+        type:Sequelize.INTEGER
+
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

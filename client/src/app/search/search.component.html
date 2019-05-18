@@ -1,30 +1,24 @@
 <br>
-<div class="container">
-
 <div class="row">
   <div class="col-lg-1">
-
   </div>
 
   <div class="col-lg-9" *ngIf="ItemName">
     <!--<div >-->
-      <form class="example-form" >
-        <div class="form-group">
-          <mat-form-field class="example-full-width" style="width: 70%">
-            <input type="text" placeholder="Select Item"  matInput [formControl]="myControl" [matAutocomplete]="auto"
-                   class="form-control "  [(ngModel)]="userFilter.Name">
+    <form class="example-form" >
+      <div class="form-group">
+          <input type="text" placeholder="Select Item"  matInput [formControl]="myControl" [matAutocomplete]="auto"
+                 class="form-control "  [(ngModel)]="userFilter.Name" style="width: 70%">
 
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)" id="autoCompleteInput" >
+              {{option.Name}}
+            </mat-option>
+          </mat-autocomplete>
+      </div>
+    </form>
 
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)" id="autoCompleteInput" >
-                {{option.Name}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </div>
-      </form>
-
-<!--    </div>-->
+    <!--    </div>-->
 
 
     <div *ngIf="contains">
@@ -51,7 +45,7 @@
               {{itemAndDetails.itemName}}
             </td>
             <td>
-              <select [(ngModel)]="itemAndDetails.quantity" class="form-control" (click)="cost(itemAndDetails)" >
+              <select  [(ngModel)]="itemAndDetails.quantity"  (click)="cost(itemAndDetails)" >
 
                 <option *ngFor="let countOfItems of count">
                   {{countOfItems}}
@@ -81,7 +75,7 @@
           <div class="col-sm-2"><label>Customer Name:</label></div>
           <div class="col-sm-6">
             <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"
-                   [(ngModel)]="customerName"  (input)="disableOrEnableButton()" >
+                   [(ngModel)]="customerName"  (input)="disableOrEnableButton()">
           </div>
 
         </div>
@@ -96,11 +90,81 @@
     </div>
 
 
-</div>
+  </div>
   <div class="col-lg-2">
-    <br>
+
     <button (click)="previousBills()" class="btn btn-info" >Previous Bills</button>
 
   </div>
+
 </div>
+<mat-divider></mat-divider>
+<div class="container-fluid row" style="background-color: darkcyan">
+  <div class="col-lg-4">
+    <div class="dropdown">
+      <div class="dropdown-toggle cursor"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Home Allowences
+      </div>
+      <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item " (click)="soapDetails()">Soaps</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4"></div>
+
 </div>
+<mat-divider></mat-divider>
+<br>
+<br>
+<div *ngIf=soapsDetails>
+  <div class="row">
+    <div class="col-lg-2">
+      <mat-card>
+        <br>
+        <div align="center">
+          <b>Filter</b>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+          <br>
+          CATEGORIES
+          <br>
+          Color<br>
+          <input type="checkbox" [(ngModel)]="Bluesoapschecked" (change)="soapCategory(Bluesoapschecked,Greensoapschecked,Whitesoapschecked)">Blue<br>
+          <input type="checkbox" [(ngModel)]="Greensoapschecked" (change)="soapCategory(Bluesoapschecked,Greensoapschecked,Whitesoapschecked)">Green<br>
+          <input type="checkbox" [(ngModel)]="Whitesoapschecked" (change)="soapCategory(Bluesoapschecked,Greensoapschecked,Whitesoapschecked)">White<br>
+        </div>
+      </mat-card>
+
+
+    </div>
+    <div class="col-lg-10">
+      <mat-card>
+        <div class="row">
+          <div *ngFor="let item of ItemName">
+            <div class="col-lg-3">
+              <br>
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="../../assets/{{item.Name}}.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.Name}}</h5>
+                  <h5 class="card-title">₹{{item.price}}</h5>
+                  <p class="card-text">Some quick example text to build on the card</p>
+                  <div class="btn btn-primary" (click)="itemNames(item)">PLACE ORDER</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+

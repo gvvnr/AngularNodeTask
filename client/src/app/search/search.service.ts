@@ -10,29 +10,35 @@ import { map } from 'rxjs/operators';
 export class SearchService {
 
   constructor(private queryApi: QueryApi) { }
-  getProductData(): Observable <any> {
+  getProductData(): Observable <any> {//-----gets all rows of product details from database
     let req;
      return this.queryApi.doGet('PRODUCTDATA', req)
        .pipe(
          catchError(err => of([err]))
        );
   }
+  //getProductByCategory
+  getProductByCategoryAndColor(category,Blue,Green,White): Observable <any> {//-----gets all rows having specific category and color from database
 
-  getImage(): Observable <any> {
-    let req;
-    return this.queryApi.doGet('GET_IMAGE', req)
+    return this.queryApi.doGet('PRODUCTCATEGORYANDCOLOR',  {"category":category,"Blue":Blue,"Green":Green,"White":White})
       .pipe(
         catchError(err => of([err]))
       );
   }
 
+  getProductByCategory(category): Observable <any> {//-----gets all rows of product details from database
+
+    return this.queryApi.doGet('PRODUCTCATEGORY',  {"category":category})
+      .pipe(
+        catchError(err => of([err]))
+      );
+  }
 
   createItemData(ItemData,billData): Observable <any>{
     let req;
-    console.log('in service');
 
     return this.queryApi.doPost('INSERT_ITEM_DATA',{"itemValues":ItemData,"billId":billData}).pipe(map(
-      res =>{console.log(res,'res');
+      res =>{
       return res;
       })
       ,catchError((err) =>
@@ -42,10 +48,8 @@ export class SearchService {
   }
   bulkCreateItemData(ItemData,billData): Observable <any>{
     let req;
-    console.log('In bulk create  service');
-
     return this.queryApi.doPost('BULK_INSERT_ITEM_DATA',{"itemValues":ItemData,"billId":billData}).pipe(map(
-      res =>{console.log(res,'res');
+      res =>{
         return res;
       })
       ,catchError((err) =>

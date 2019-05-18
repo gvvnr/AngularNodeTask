@@ -44,6 +44,7 @@ import { ItemsCostPipe } from './items-cost.pipe';
 import { TotalItemsPipe } from './total-items.pipe';
 import { ListOfItemsPipe } from './list-of-items.pipe';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { SoapsComponent } from './soaps/soaps.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/previousOrders', pathMatch: 'full' },
@@ -66,6 +67,7 @@ const routes: Routes = [
     TotalItemsPipe,
     ListOfItemsPipe,
     OrderDetailsComponent,
+    SoapsComponent,
   ],
   imports: [
     BrowserModule,

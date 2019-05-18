@@ -9,6 +9,9 @@ export const BILLDATABYID='BILLDATABYID';
 export const SEARCHBYCOULMN='SEARCHBYCOULMNBILLDATA';//SEARCHBYPRICE
 export const MINMAXPRICE='SEARCHBYMAXPRICE';//--------get min and max price to display pagination data from that
 export const DATESEARCH='SEARCHBYDATE';
+export const PRODUCTCATEGORY='PRODUCTCATEGORY';//-----------get coulmn details by specific category from products table
+export const PRODUCTCATEGORYANDCOLOR='PRODUCTCATEGORYANDCOLOR';//--search based on color and category and send result
+//PRODUCTCATEGORYANDCOLOR
 export const UserEndPoint = (type: string, params:any) => {
   const endpoints = {
     [BILLGETDATA]:'/bill',
@@ -21,7 +24,9 @@ export const UserEndPoint = (type: string, params:any) => {
     [BILLDATABYID]:'/bill/id',
     [SEARCHBYCOULMN]:'/bill/search/coulmn',//-------------------------search by specific coulmn----------------//
     [MINMAXPRICE]:'/bill/search/price',//-------------search for specific in between price------------
-    [DATESEARCH]:'/bill/search/date'
+    [DATESEARCH]:'/bill/search/date',
+    [PRODUCTCATEGORY]:'/product/category',
+    [PRODUCTCATEGORYANDCOLOR]:'/product/filter'
   };
   console.log("----> user endpoint",params);
   console.log(environment.API_ROOT + endpoints[type]);

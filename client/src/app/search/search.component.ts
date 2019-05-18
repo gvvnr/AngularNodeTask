@@ -23,6 +23,10 @@ export class SearchComponent implements OnInit {
   itemsTotalCost=0;
   paymentOption=true;
   days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  soapsDetails:any;// stores soap specific row details from database
+  Bluesoapschecked=false;
+  Greensoapschecked=false;
+  Whitesoapschecked=false;
 
 constructor(private searchData :SearchService,private router: Router,public dialog: MatDialog) {  }
 ngOnInit() {
@@ -40,11 +44,34 @@ cost(product){//--------------changing cost of item based on selected option in 
 }
 
 
+  soapCategory(Blue,Green,White){
+
+//alert(color);Soap
+    if(Blue || Green || White){
+      //alert(Blue);
+      this.searchData.getProductByCategoryAndColor('Soap',Blue,Green,White).subscribe((response)=>{
+        this.ItemName=response;
+
+      });
+    }
+    else
+      this.soapDetails()
+
+
+  }
+
   asign(){//-------getting all rows from data base------------------------//
     this.searchData.getProductData().subscribe((response)=>{
       this.ItemName=response;
     });
 
+  }
+  soapDetails(){
+    this.searchData.getProductByCategory('Soap').subscribe((response)=>{
+      console.log(response);
+      this.ItemName=response;
+    });
+    this.soapsDetails=true;
   }
 
   removeItem(itemAndDetails){// deleting particular row in item table before making payment
@@ -128,11 +155,6 @@ cost(product){//--------------changing cost of item based on selected option in 
 
   }
   navigate(data) {//---------navigating to payment page by taking some required data----------------------
-    /*let navigationExtras: NavigationExtras = {
-      queryParams: data
-    };
-    console.log(navigationExtras);
-    this.router.navigate(['/payment'], navigationExtras);*/
         this.router.navigate(['/specificOrderDetails'],{queryParams:{id:data.id}});
 
   }
@@ -147,6 +169,7 @@ cost(product){//--------------changing cost of item based on selected option in 
   previousBills(){
     this.router.navigate(['/previousOrders'])
   }
+
 
 
 

@@ -5,8 +5,12 @@ export default class ProductRoutes {
     router
       .route('/product')
       .get(ProductController.getAll);
-     console.log('product');
-    ;
+    router
+      .route('/product/category')
+      .get(ProductController.getByCategory);
+    router
+      .route('/product/filter')
+      .get(ProductController.filterBy)
   }
 
 
