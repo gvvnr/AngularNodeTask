@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService} from '../search/search.service'
-import {PreviousOrdersListService} from './previous-orders-list.service'
-import {Router,NavigationExtras} from "@angular/router";
+import {PreviousOrdersListService} from './previous-orders-list.service';
+import {Router, NavigationExtras} from '@angular/router';
+import {LocalStorage} from '@ngx-pwa/local-storage';
 //import { Data } from "../../providers/data/data";
 
 @Component({
@@ -13,24 +14,25 @@ import {Router,NavigationExtras} from "@angular/router";
 
 
 export class PreviousOrdersComponent implements OnInit {
-  previousBills:any;
+  previousBills: any;
   p: number = 1;
   page:Paginate;
-  total:number;
-  rows:any[];
-  searchingItem:any;
-  searchingbyName:any;
-  searchingbyDay:any;
-  searchingbyMinPrice:any;
-  searchingbyMaxPrice:any;
-  searchSpecific:SearchBySpecificValue;
-  itemsPerPage=4;
+  total: number;
+  rows: any[];
+  searchingItem: any;
+  searchingbyName: any;
+  searchingbyDay: any;
+  searchingbyMinPrice: any;
+  searchingbyMaxPrice: any;
+  searchSpecific: SearchBySpecificValue;
+  itemsPerPage = 4;
   searchingbyDate:any;//new Date();
-  myFilter:any;
-  constructor(private searchData :SearchService, private previousOrders :PreviousOrdersListService,private router: Router) { }
+  myFilter: any;
+ constructor(private searchData: SearchService, private previousOrders: PreviousOrdersListService, private router: Router, private localstorage: LocalStorage) { }
 
   ngOnInit() {
     this.getOrderDetails();
+
   }
 
   ResultDataAfterSearchbyDate(){
@@ -95,6 +97,10 @@ export class PreviousOrdersComponent implements OnInit {
       itemsPerPage:4,
       search:'',
     };
+    console.log('HURRA');
+    this.localstorage.getItem('Items').subscribe( result =>{
+      console.log('RRRRKKKKKK:',result);
+    });
 
     this.previousOrders.getBillData(this.page).subscribe(result =>{
       console.log(result)

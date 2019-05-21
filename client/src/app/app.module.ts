@@ -11,13 +11,14 @@ import { FooterComponent } from './footer/footer.component';
 import { PaymentComponent } from './payment/payment.component';
 import { DisplayComponent } from './display/display.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {SearchService} from "./search/search.service";
-import {QueryApi} from "./commonServices/request/QueryApi";
-import {HttpClientModule} from "@angular/common/http";
+import {SearchService} from './search/search.service';
+import {QueryApi} from './commonServices/request/QueryApi';
+import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
   MatButtonModule,
   MatCardModule,
@@ -45,14 +46,17 @@ import { TotalItemsPipe } from './total-items.pipe';
 import { ListOfItemsPipe } from './list-of-items.pipe';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { SoapsComponent } from './soaps/soaps.component';
+import { ItemsDetailsComponent } from './items-details/items-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/previousOrders', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'previousOrders', component: PreviousOrdersComponent },
-  { path:'specificOrderDetails',component:OrderDetailsComponent},
-  { path:'**',component: PreviousOrdersComponent}
+  { path: 'specificOrderDetails', component: OrderDetailsComponent},
+  { path: 'itemDetails', component: ItemsDetailsComponent},
+  { path: '**', component: PreviousOrdersComponent},
+
 ];
 @NgModule({
   declarations: [
@@ -68,6 +72,7 @@ const routes: Routes = [
     ListOfItemsPipe,
     OrderDetailsComponent,
     SoapsComponent,
+    ItemsDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,10 +108,11 @@ const routes: Routes = [
     MatOptionModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgSelectModule
   ],
   exports: [ RouterModule],
- providers: [SearchService,QueryApi],
+ providers: [SearchService, QueryApi],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -6,6 +6,8 @@ import { Router, NavigationExtras} from "@angular/router";
 import {Bill} from './bill'
 import {MatDialog} from '@angular/material';
 import * as _ from "lodash";
+import { LocalStorage } from '@ngx-pwa/local-storage';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -13,26 +15,34 @@ import * as _ from "lodash";
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  count :number[]=[1,2,3,4,5];
+  count: number[]=[1,2,3,4,5];
   userFilter: any = { Name: '' };
-  contains: any;// if item is present displays the table
-  ItemName:any[] = [];
-  ItemDataDetails: ItemData[]=[];
+  contains: any; // if item is present displays the table
+  ItemName: any[] = [];
+  ItemDataDetails: ItemData[] = [];
   totalBill: Bill;
-  customerName:string;
-  itemsTotalCost=0;
-  paymentOption=true;
-  days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  soapsDetails:any;// stores soap specific row details from database
-  Bluesoapschecked=false;
-  Greensoapschecked=false;
-  Whitesoapschecked=false;
+  customerName: string;
+  itemsTotalCost = 0;
+  paymentOption = true;
+  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday'];
+  soapsDetails: any;   // stores soap specific row details from database
+  Bluesoapschecked = false;
+  Greensoapschecked = false;
+  Whitesoapschecked = false;
 
-constructor(private searchData :SearchService,private router: Router,public dialog: MatDialog) {  }
+constructor(private searchData: SearchService,private router: Router,public dialog: MatDialog, private localstorage :LocalStorage) {  }
 ngOnInit() {
   this.asign();
+  this.localstorage.getItem('Items').subscribe( result =>{
+    console.log('GOT value:', result);
+    if(result!=''){
+      this.ItemDataDetails =result;
+    }
+
+  });
+
 }
-cost(product){//--------------changing cost of item based on selected option in the table-----------//
+cost(product) {   //--------------changing cost of item based on selected option in the table-----------//
   this.ItemName.forEach( item =>{
     if(item.Name==product.itemName){
       this.itemsTotalCost=this.itemsTotalCost-product.cost;
@@ -89,7 +99,20 @@ cost(product){//--------------changing cost of item based on selected option in 
 
 
   itemNames(row){  //------Adding Items into Item tables
-  for(let i=0; i<this.ItemDataDetails.length;i++){
+    this.ItemDataDetails.push({
+      product_id: row.id,
+      quantity: 1,
+      cost: row.price,
+      itemName: row.Name
+    });
+    console.log(this.ItemDataDetails);
+    this.localstorage.setItem('Items', this.ItemDataDetails).subscribe(res=>{
+      console.log('ADDDED value', res);
+    });
+
+
+    this.router.navigate(['/itemDetails']);
+  /*for(let i=0; i<this.ItemDataDetails.length;i++){
     if(this.ItemDataDetails[i].itemName==row.Name){
       if(this.ItemDataDetails[i].quantity<5){
         //this.itemsTotalCost=this.itemsTotalCost-this.ItemDataDetails[i].cost;
@@ -112,22 +135,23 @@ cost(product){//--------------changing cost of item based on selected option in 
         this.contains=true;
         this.itemsTotalCost=this.itemsTotalCost+row.price;
 
+
         this.userFilter.Name="";//--empties auto completer after every search-----
   return;
 
       }
     }
-  }
+  }*/
 
-    this.ItemDataDetails.push({
+/*    this.ItemDataDetails.push({
       product_id:row.id,
       quantity:1,
       cost:row.price,
       itemName:row.Name
-    });
-    console.log(this.ItemDataDetails);
-    this.contains=true;
-    this.itemsTotalCost=this.itemsTotalCost+row.price;
+    });*/
+
+    this.contains = true;
+    this.itemsTotalCost = this.itemsTotalCost + row.price;
 
     this.userFilter.Name="";//--empties auto completer after every search-----
   }
@@ -140,6 +164,7 @@ cost(product){//--------------changing cost of item based on selected option in 
       purchasedOn: this.days[new Date().getDay()],
       itemsTotalCost:this.itemsTotalCost
     };
+//    this.localS
     console.log(this.totalBill);
     this.searchData.createBillData(this.totalBill).subscribe(resp =>{
 
@@ -151,6 +176,7 @@ cost(product){//--------------changing cost of item based on selected option in 
 
 
     });
+
 
 
   }

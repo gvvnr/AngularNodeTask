@@ -1,0 +1,102 @@
+<p>
+  items-details works!
+</p>
+<div *ngIf="cartItems">
+  <div class="row">
+    <div class="col-lg-8">
+      <mat-card>
+        <div class="row" *ngFor="let item of cartItems">
+          <div class="col-lg-4">
+            <img class="card-img-top" src="../../assets/{{item.itemName}}.jpg" alt="Card image cap">
+          </div>
+
+          <div class="col-lg-8">
+            <br>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="ItemName">
+                  {{item.itemName}}
+                </div>
+
+                <br>
+                <br>
+                <b>₹​&nbsp;{{item.cost}}</b>
+                <br>
+                <mat-select [value]="item.quantity" >
+                  <mat-option [value]="opt" *ngFor="let opt of options" (click)="cost(item,opt)">
+                    {{opt}}
+                  </mat-option>
+
+                </mat-select>
+                <br>
+                <br>
+                <button  class="btn ItemName" (click)="removeItem(item)"><span>REMOVE</span></button>
+              </div>
+
+              <div class="col-lg-6">
+                Delivery by, 2 Days after Payment
+              </div>
+
+            </div>
+
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+
+
+      </mat-card>
+
+    </div>
+
+
+    <div class="col-lg-4">
+      <mat-card>
+        <div style="padding-bottom: 3%">
+        <b>PRICE DETAILS</b>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="row priceDetails">
+          <div class="col-lg-6">
+            Price
+          </div>
+          <div class="col-lg-6">
+              {{itemsTotalCost-deliveryCharges}}
+          </div>
+
+
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row priceDetails">
+          <div class="col-lg-6">
+            Delivery charges
+          </div>
+          <div class="col-lg-6">
+            {{deliveryCharges}}
+
+          </div>
+
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row priceDetails">
+          <div class="col-lg-6">
+            <b>Amount Payable</b>
+          </div>
+          <div class="col-lg-6">
+            {{itemsTotalCost}}
+          </div>
+        </div>
+
+
+
+      </mat-card>
+      <br>
+      <mat-card >
+        <button (click)="makePayment()">ProceedToPay</button>
+      </mat-card>
+
+    </div>
+
+  </div>
+
+</div>
