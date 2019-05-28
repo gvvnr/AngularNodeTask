@@ -1,5 +1,5 @@
 import Promise from "bluebird";
-import models from "../../../models"
+import models from "../../../models";
 export class ItemDao {
 
 
@@ -11,11 +11,9 @@ export class ItemDao {
         offset: offset,
         $sort: { id: 1 },*/
         include:[
-
           {
             model:models.ProductModel
           }
-
         ]
       })
         .then(users => {
@@ -38,15 +36,15 @@ export class ItemDao {
             models.BillItems.create({
               bill_id:billId,
               item_id:resp.id
-            })
+            });
           })
       .then( (item) => {
-          resolve(item)
+          resolve(item);
         })
         .catch(error => {
-          reject(error)
-        })
-    })
+          reject(error);
+        });
+    });
   }
 
   static BulkcreateNew(request,billId) {
@@ -61,16 +59,16 @@ export class ItemDao {
           totalCost:request.itemValues[i].cost,
           bill_id:billId
 
-        })
+        });
       }
       models.item.bulkCreate(productList,{returning: true})
         .then((list)=>{
           resolve(list);
         })
         .catch(error => {
-          reject(error)
-        })
-    })
+          reject(error);
+        });
+    });
   }
 
   }

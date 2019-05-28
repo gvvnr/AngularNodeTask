@@ -7,8 +7,8 @@
     <!--<div >-->
     <form class="example-form" >
       <div class="form-group">
-          <input type="text" placeholder="Select Item"  matInput [formControl]="myControl" [matAutocomplete]="auto"
-                 class="form-control "  [(ngModel)]="userFilter.Name" style="width: 70%">
+          <input  type="text" placeholder="Select Items"  matInput [formControl]="myControl" [matAutocomplete]="auto"
+                 class="form-control shadow1"  [(ngModel)]="userFilter.Name" style="width: 70%">
 
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of ItemName | filterBy: userFilter" [value]="option.Name" (click)="itemNames(option)" id="autoCompleteInput" >
@@ -139,22 +139,23 @@
 
 
     </div>
-    <div class="col-lg-10">
+    <div class="col-lg-10 size">
       <mat-card>
         <div class="row">
           <div *ngFor="let item of ItemName">
-            <div class="col-lg-3">
+            <div >
               <br>
-              <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="../../assets/{{item.Name}}.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">{{item.Name}}</h5>
-                  <h5 class="card-title">₹{{item.price}}</h5>
+              <mat-card class="cardAlignment card1">
+                <mat-card-content>
+                  <img class="card-img-top zoom" src="../../assets/{{item.Name}}.jpg " id="imageSize"  alt="Card image cap">
+                  <h5 class="itemColor">{{item.Name}}</h5>
+                  <h5>₹{{item.price}}</h5>
                   <p class="card-text">Some quick example text to build on the card</p>
-                  <div class="btn btn-primary" (click)="itemNames(item)">PLACE ORDER</div>
+                  <div class="btn btn-primary cursor buttonHover" (click)="itemNames(item)">PLACE ORDER</div>
+                </mat-card-content>
 
-                </div>
-              </div>
+              </mat-card>
+
             </div>
           </div>
         </div>
@@ -168,3 +169,9 @@
 
 </div>
 
+<!--              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+
+
+                </div>
+              </div>-->

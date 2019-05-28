@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     ProductModel.hasMany(models.item,{
       foreignKey:'product_id',
       sourceKey:'id'
-    })
+    });
 
   };
   return ProductModel;

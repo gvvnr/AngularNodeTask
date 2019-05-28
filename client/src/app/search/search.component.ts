@@ -35,8 +35,10 @@ ngOnInit() {
   this.asign();
   this.localstorage.getItem('Items').subscribe( result =>{
     console.log('GOT value:', result);
-    if(result!=''){
+    if(result!='' && result!=null){
       this.ItemDataDetails =result;
+      console.log('QQ');
+      console.log(this.ItemDataDetails);
     }
 
   });
@@ -86,19 +88,19 @@ cost(product) {   //--------------changing cost of item based on selected option
 
   removeItem(itemAndDetails){// deleting particular row in item table before making payment
     for(let i=0;i<this.ItemDataDetails.length;i++){
-      if(this.ItemDataDetails[i]==itemAndDetails){
-        this.itemsTotalCost=this.itemsTotalCost-itemAndDetails.cost;
+      if(this.ItemDataDetails[i] == itemAndDetails) {
+        this.itemsTotalCost=this.itemsTotalCost - itemAndDetails.cost;
         this.ItemDataDetails.splice(i,1);
       }
     }
-    if(this.ItemDataDetails.length==0){
-      this.contains=false;
+    if ( this.ItemDataDetails.length == 0 ) {
+      this.contains = false;
     }
 
   }
 
 
-  itemNames(row){  //------Adding Items into Item tables
+  itemNames(row) {  // ------Adding Items into Item tables
     this.ItemDataDetails.push({
       product_id: row.id,
       quantity: 1,
@@ -157,7 +159,7 @@ cost(product) {   //--------------changing cost of item based on selected option
   }
 
 
-  makePayment(){ //--------------------inserting data into bill and item tables----------------//
+  makePayment() { //--------------------inserting data into bill and item tables----------------//
 
     this.totalBill={
       purchasedBy: this.customerName,
@@ -207,7 +209,7 @@ cost(product) {   //--------------changing cost of item based on selected option
 
   disableOrEnableButton(){//-----enabling or disabling a button based on input text field before payment------//
 
-    if(this.customerName.match('[a-zA-Z0-9]'))
+    if (this.customerName.match('[a-zA-Z0-9]'))
       this.paymentOption=false;
     else {
       this.paymentOption=true;

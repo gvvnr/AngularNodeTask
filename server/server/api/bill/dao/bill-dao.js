@@ -1,5 +1,5 @@
 import Promise from "bluebird";
-import models from "../../../models"
+import models from "../../../models";
 import Sequelize from "sequelize";
 const Op = Sequelize.Op;
 export class BillDao {

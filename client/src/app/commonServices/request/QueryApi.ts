@@ -9,12 +9,13 @@ export class QueryApi {
   doGet(url: string,  params: any) {
     url = UserEndPoint(url,params);
     console.log(params);
-    return this.http.get(url, {params: params});
+    return this.http.get(url, { params : params});
   }
 
 
   doPost(url: string, params: any, headers?: any) {
-    url = UserEndPoint(url,params);
+    url = UserEndPoint(url, params);
+    console.log(url);
     return this.http.post(url, params, headers);
   }
 

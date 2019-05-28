@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { PaymentComponent } from './payment/payment.component';
@@ -37,8 +37,8 @@ import {
   MatDatepickerModule,
 
 } from '@angular/material';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-//import {MdDialogModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {MdDialogModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
 import { ItemsCostPipe } from './items-cost.pipe';
@@ -47,11 +47,20 @@ import { ListOfItemsPipe } from './list-of-items.pipe';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { SoapsComponent } from './soaps/soaps.component';
 import { ItemsDetailsComponent } from './items-details/items-details.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import {AuthGuard} from './auth.guard';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 const routes: Routes = [
   { path: '', redirectTo: '/previousOrders', pathMatch: 'full' },
-  { path: 'search', component: SearchComponent },
-  { path: 'payment', component: PaymentComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'registrationForm', component: RegistrationComponent},
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
   { path: 'previousOrders', component: PreviousOrdersComponent },
   { path: 'specificOrderDetails', component: OrderDetailsComponent},
   { path: 'itemDetails', component: ItemsDetailsComponent},
@@ -73,6 +82,8 @@ const routes: Routes = [
     OrderDetailsComponent,
     SoapsComponent,
     ItemsDetailsComponent,
+    RegistrationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,11 +94,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatAutocompleteModule,
     HttpClientModule,
-    //MaterialModule,            // <----- this module will be deprecated in the future version.
+    // MaterialModule,            // <----- this module will be deprecated in the future version.
     MatDatepickerModule,        // <----- import(must)
     MatNativeDateModule,        // <----- import for date formating(optional)
-    //MatMomentDateModule,         // <----- import for date formating adapted to more locales(optional)
-
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
@@ -109,10 +118,17 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatExpansionModule,
-    NgSelectModule
+    NgSelectModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4000'],
+        blacklistedRoutes: ['localhost:4000/api/auth']
+      }
+    })
   ],
   exports: [ RouterModule],
- providers: [SearchService, QueryApi],
+ providers: [SearchService, QueryApi, AuthGuard],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

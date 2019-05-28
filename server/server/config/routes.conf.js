@@ -5,6 +5,7 @@ import express from "express";
 import compression from "compression";
 import zlib from "zlib";
 
+
 export default class RouteConfig {
     static init(application) {
         let _root = process.cwd();
@@ -35,5 +36,6 @@ export default class RouteConfig {
       }));
         application.use(morgan("dev"));
         application.use(helmet());
+      //application.use(expressJwt({secret: 'todo-app-super-shared-secret'}).unless({path: ['/api/auth']}));
     }
 }

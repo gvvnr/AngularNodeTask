@@ -1,0 +1,98 @@
+<br>
+<mat-card class="cardbody1">
+  <br>
+  <div align="center" id="heading">
+    <b>Buy A Product Registration Form</b>
+  </div>
+
+</mat-card>
+<br>
+<mat-card class="cardbody2">
+
+</mat-card>
+
+<!--<form [formGroup]="registrationForm" (ngSubmit)="displayName()">
+  <table>
+    <tr>
+
+      <td>Name:</td>
+      <td>     <input class="form-control" formControlName="name" type="text"></td>
+
+      <div *ngIf="registrationForm.controls['name'].invalid && (registrationForm.controls['name'].dirty || registrationForm.controls['name'].touched)" class="alert alert-danger">
+        <div *ngIf="registrationForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+      </div>
+      <br>
+    </tr>
+
+
+
+  </table>
+</form>-->
+
+<mat-grid-list cols="3" class="form-group cardbody2" rowHeight="14:2" >
+  <form [formGroup]='registrationForm' class="form-group" (ngSubmit)="onSubmit(registrationForm.value)">
+    <mat-grid-tile>
+      Name
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <input  type="text" formControlName="name"  class="form-control">
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile>
+      Email:
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <input  type="text" formControlName="emailId"  class="form-control">
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile>
+      Password
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <input  type="text" formControlName="password"  class="form-control">
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile><button class="btn" type="submit">submit</button></mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </form>
+
+</mat-grid-list>
+
+<!--<mat-grid-list cols="3" rowHeight="10:1" [style.background]="'skyblue'">
+  <form [formGroup]="registrationForm" class="form-group" (ngSubmit)="onSubmit()">
+    <label>
+      <div>
+
+        <mat-grid-tile class="col-lg-4"> Name:</mat-grid-tile>
+        <mat-grid-tile class="col-lg-2">
+          <input  type="text" formControlName="name"  class="form-control" required >
+        </mat-grid-tile>
+
+
+
+        <mat-grid-tile class="col-lg-2 my-grid-tile">
+          <div *ngIf="registrationForm.controls['name'].invalid && (registrationForm.controls['name'].dirty || registrationForm.controls['name'].touched)"
+               class="alert alert-danger">
+
+
+
+            <div *ngIf="registrationForm.controls['name'].errors.required">
+
+              Name is required.
+            </div>
+            <div *ngIf="registrationForm.controls['name'].errors.minlength">
+
+
+              Name must be at least 4 charactrs
+
+            </div>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </label>
+  </form>
+
+</mat-grid-list>-->
