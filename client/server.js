@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(__dirname +'/dist/buy-products'));
+app.use(express.static(__dirname +'./dist/buy-products'));
 
 app.get('/*' , (req , res) => {
   res.sendFile(path.json(__dirname+'/dist/buy-products/index.html'));
