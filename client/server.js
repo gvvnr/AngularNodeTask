@@ -3,10 +3,10 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(__dirname +'./dist/buy-products'));
+app.use(express.static('./dist/buy-products'));
 
 app.get('/*' , (req , res) => {
-  res.sendFile(path.json(__dirname+'/dist/buy-products/index.html'));
+  res.sendFile(path.join(__dirname+'./dist/buy-products/index.html'));
 });
 
 app.listen(process.env.PORT || 8080 ,() =>{
