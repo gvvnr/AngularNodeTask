@@ -33,6 +33,6 @@ export const UserEndPoint = (type: string, params:any) => {
     [LOGIN]: '/login'
   };
   console.log('----> user endpoint' , params);
-  console.log(environment.API_ROOT + endpoints[type]);
-  return environment.API_ROOT + endpoints[type];
+  //console.log(environment.API_ROOT + endpoints[type]);
+  return 'http://localhost:3333' + endpoints[type];
 };
