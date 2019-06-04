@@ -10,10 +10,10 @@
   "latedef": true,
   "newcap": true,
   "noarg": true,
-  "quotmark": "single",
+  "quotmark": "single/double",
   "undef": true,
   "unused": true,
-  "strict": true,
+  "strict": false,
   "browser": true,
   "globals": {
     "describe": false,
