@@ -9,7 +9,7 @@ import Routes from "./routes/index";
 
 
 const app = express();
-app.use(express.static(__dirname + '/dist'));
+/*app.use(express.static(__dirname + '/dist'));*/
 ///buy-products
 /*app.get('/!*', function(req,res) {
 
