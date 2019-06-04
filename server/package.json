@@ -6,7 +6,8 @@
     "start-server": "nodemon ./server/index --watch server",
     "dev": "npm run start-server",
     "test-server": "mocha 'tests/server/**/*_test.js' --recursive --check-leaks --reporter min --compilers js:babel-register",
-    "noop": "echo 'noop'"
+    "noop": "echo 'noop'",
+    "postinstall": "ng --prod "
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
