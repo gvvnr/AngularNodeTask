@@ -13,12 +13,6 @@ const app = express();
 app.use('/', (req,res) =>{
   res.send("hello");
 })
-/*app.use(express.static(__dirname + '/dist'));*/
-///buy-products
-/*app.get('/!*', function(req,res) {
-
-  res.sendFile(path.join(__dirname+'/dist/BuyProducts/index.html'));
-});*/
 
 RoutesConfig.init(app);
 
@@ -30,4 +24,4 @@ http.createServer(app)
     console.log(`up and running @: ${os.hostname()} on port: ${PORT}`);
     console.log(`enviroment: ${process.env.NODE_ENV}`);
   });
-// /  .listen(PORT, '192.168.0.141');
+
