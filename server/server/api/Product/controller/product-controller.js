@@ -12,7 +12,7 @@ export default class ProductController {
         res(error).json(error);
       });*/
     app.use('/', (req,res) =>{
-      res.send("In Product");
+      res.send("In Productvb");
     });
 
   }
