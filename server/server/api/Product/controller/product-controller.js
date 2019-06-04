@@ -4,13 +4,16 @@ export default class ProductController {
   static getAll(req, res) {
     console.log('afd');
 
-    ProductDao.getAll()
+/*    ProductDao.getAll()
       .then(products => {
         res.status(201).json(products);
       })
       .catch(error => {
         res(error).json(error);
-      })
+      });*/
+    app.use('/', (req,res) =>{
+      res.send("In Product");
+    });
 
   }
   //filterBy

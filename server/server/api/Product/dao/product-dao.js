@@ -14,8 +14,8 @@ export class ProductDao {
         }, (error) => {
          // console.log(error);
           reject(error);
-        })
-    })
+        });
+    });
   }
   //getByCategory
   static getByCategory(_category) {
@@ -31,8 +31,8 @@ export class ProductDao {
         }, (error) => {
           // console.log(error);
           reject(error);
-        })
-    })
+        });
+    });
   }
   //filterBy
   static filterBy(data) {
@@ -40,13 +40,13 @@ export class ProductDao {
       var whereStatement =[];
       console.log('aaa');
       if(data.Blue=='true'){
-        whereStatement.push({color:'Blue'})
+        whereStatement.push({color:'Blue'});
       }
       if(data.Green=='true'){
-        whereStatement.push({color:'Green'})
+        whereStatement.push({color:'Green'});
       }
       if(data.White=='true'){
-        whereStatement.push({color:'White'})
+        whereStatement.push({color:'White'});
       }
       models.ProductModel.findAll({
         where:{
