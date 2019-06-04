@@ -12,7 +12,7 @@ const app = express();
 
 app.use('/', (req,res) =>{
   res.send("hello");
-})
+});
 
 RoutesConfig.init(app);
 
