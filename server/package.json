@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/ng-fullstack-app.js",
   "scripts": {
-    "start": "nodemon ./server/index --watch server",
+    "start": "node server/index",
     "dev": "npm run start-server",
     "test-server": "mocha 'tests/server/**/*_test.js' --recursive --check-leaks --reporter min --compilers js:babel-register",
     "noop": "echo 'noop'"
