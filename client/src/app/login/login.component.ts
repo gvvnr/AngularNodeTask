@@ -37,14 +37,10 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('currentUser', res);
       console.log('IIII');
       console.log(localStorage.getItem('currentUser'));
-      const helper = new JwtHelperService();
 
-      const decodedToken = helper.decodeToken(res);
-      console.log(decodedToken);
-      const expirationDate = helper.getTokenExpirationDate(res);
-      const isExpired = helper.isTokenExpired(res);
 /*      this.router.navigate(' search');*/
       this.router.navigate(['/search']);
+      console.log('LOGGED In');
 
     });
   }
