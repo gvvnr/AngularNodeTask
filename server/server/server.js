@@ -10,16 +10,15 @@ import Routes from "./routes/index";
 
 const app = express();
 
-app.use('/', (req,res) =>{
-  res.send("hello");
-});
-app.use('/', (req,res) =>{
-  res.send("Routes Initalization completed::");
-});
+
+
 
 RoutesConfig.init(app);
 
 Routes.init(app, express.Router());
+app.use('/', (req,res) =>{
+  res.send("Routes Initalization completed::");
+});
 
 http.createServer(app)
  // .listen(PORT, '192.168.42.242')//192.168.42.242
