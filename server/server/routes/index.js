@@ -4,13 +4,11 @@ import BillRoutes from '../api/bill/route/bill-route';
 import RegistrationRoutes from '../api/registration/route/registration-route';
 import LoginRoutes from '../api/login/route/login-route';
 export default class Routes {
-   static init(app, router) {
+   static init(router) {
      ProductRoutes.init(router);
      ItemRoutes.init(router);
      BillRoutes.init(router);
      RegistrationRoutes.init(router);
      LoginRoutes.init(router);
-     app.use("/",router);
-     console.log('RRRRRRRRRR');
    }
 }

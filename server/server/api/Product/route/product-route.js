@@ -1,4 +1,4 @@
-import ProductController from "../controller/product-controller"
+import ProductController from "../controller/product-controller";
 
 export default class ProductRoutes {
   static init(router) {
@@ -10,7 +10,7 @@ export default class ProductRoutes {
       .get(ProductController.getByCategory);
     router
       .route('/product/filter')
-      .get(ProductController.filterBy)
+      .get(ProductController.filterBy);
   }
 
 

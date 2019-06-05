@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "password",
-    "database": "BuyProducts",
-    "host": "127.0.0.1",
+    "username": "yyevkhloijcbdt",
+    "password": "1b357c9f34d61d02dcc53ee3ca9c94f33da65c3958718cd267195faf18e0a766",
+    "database": "daa0i9ouedgkp1",
+    "host": "ec2-107-22-238-205.compute-1.amazonaws.com",
     "dialect": "postgres"
 
   },
