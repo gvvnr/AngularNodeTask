@@ -13,11 +13,12 @@ const app = express();
 app.use('/', (req,res) =>{
   res.send("hello");
 });
-
-RoutesConfig.init(app);
 app.use('/', (req,res) =>{
   res.send("Routes Initalization completed::");
 });
+
+RoutesConfig.init(app);
+
 Routes.init(app, express.Router());
 
 http.createServer(app)
