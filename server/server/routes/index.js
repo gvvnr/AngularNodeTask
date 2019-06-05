@@ -10,5 +10,7 @@ export default class Routes {
      BillRoutes.init(router);
      RegistrationRoutes.init(router);
      LoginRoutes.init(router);
+
+
    }
 }
