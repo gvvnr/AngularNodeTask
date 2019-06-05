@@ -4,14 +4,14 @@ export default class ProductController {
   static getAll(req, res) {
     console.log('afd');
 
-    ProductDao.getAll()
+/*    ProductDao.getAll()
       .then(products => {
         res.status(201).json(products);
       })
       .catch(error => {
         res(error).json(error);
-      });
-/*      res.send("In Productvb");*/
+      });*/
+      res.send("In Productvb");
 
 
   }
