@@ -10,10 +10,11 @@ export class ProductDao {
 
       })
         .then(users => {
+          console.log('yes');
           resolve(users);
 
         }, (error) => {
-         // console.log(error);
+          console.log(error);
           reject(error);
         });
     });
