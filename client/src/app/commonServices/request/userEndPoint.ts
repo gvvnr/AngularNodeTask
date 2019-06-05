@@ -34,5 +34,5 @@ export const UserEndPoint = (type: string, params:any) => {
   };
   console.log('----> user endpoint' , params);
   //console.log(environment.API_ROOT + endpoints[type]);
-  return 'http://localhost:3333' + endpoints[type];
+  return 'https://buyaproductserver.herokuapp.com' + endpoints[type];
 };
