@@ -11,6 +11,7 @@ export class ProductDao {
       })
         .then(users => {
           resolve(users);
+
         }, (error) => {
          // console.log(error);
           reject(error);
