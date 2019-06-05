@@ -5,8 +5,7 @@
     "database": "daa0i9ouedgkp1",
     "host": "ec2-107-22-238-205.compute-1.amazonaws.com",
     "dialect": "postgres",
-    "port": "5432",
-    "use_env_variable": "postgres://yyevkhloijcbdt:1b357c9f34d61d02dcc53ee3ca9c94f33da65c3958718cd267195faf18e0a766@ec2-107-22-238-205.compute-1.amazonaws.com:5432/daa0i9ouedgkp1"
+    "port": "5432"
 
 
   },
