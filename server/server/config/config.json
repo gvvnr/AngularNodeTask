@@ -6,7 +6,7 @@
     "host": "ec2-107-22-238-205.compute-1.amazonaws.com",
     "dialect": "postgres",
     "port": "5432",
-    "use_env_variable": "DATABASE_URL"
+
 
   },
   "test": {
