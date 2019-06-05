@@ -16,9 +16,9 @@ const app = express();
 RoutesConfig.init(app);
 
 Routes.init(app, express.Router());
-app.use('/', (req,res) =>{
+/*app.use('/', (req,res) =>{
   res.send("Routes Initalization completed::");
-});
+});*/
 
 http.createServer(app)
  // .listen(PORT, '192.168.42.242')//192.168.42.242
