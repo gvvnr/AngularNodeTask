@@ -5,7 +5,7 @@
     "database": "daa0i9ouedgkp1",
     "host": "ec2-107-22-238-205.compute-1.amazonaws.com",
     "dialect": "postgres",
-    "port": "5432",
+    "port": "5432"
 
 
 
